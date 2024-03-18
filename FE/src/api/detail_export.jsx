@@ -1,22 +1,50 @@
 import axios from "axios";
 
-const headers = {
-  Authorization: "Bearer " + localStorage.getItem("token"),
-};
 export const creatDetailExport = async (item) => {
-  return await axios.post(`http://localhost:8080/details/createAll`, item, {headers});
+  const token = localStorage.getItem("token");
+  return await axios.post(`http://localhost:8080/details/createAll`, item, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 export const findDetailByExport = async (id) => {
-  return (await axios.get(`http://localhost:8080/details/getByExport/${id}`, {headers}))
-    .data;
+  const token = localStorage.getItem("token");
+  return (
+    await axios.get(`http://localhost:8080/details/getByExport/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).data;
 };
 export const getDetailExport = async () => {
-  return (await axios.get(`http://localhost:8080/details`, {headers})).data;
+  const token = localStorage.getItem("token");
+  return (
+    await axios.get(`http://localhost:8080/details`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).data;
 };
 export const deleteDetailExport = async (id) => {
-  return (await axios.delete(`http://localhost:8080/details/${id}`, {headers})).data;
+  const token = localStorage.getItem("token");
+  return (
+    await axios.delete(`http://localhost:8080/details/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).data;
 };
 export const deleteDetailByExport = async (id) => {
-  return (await axios.delete(`http://localhost:8080/details/getByExport/${id}`, {headers}))
-    .data;
+  const token = localStorage.getItem("token");
+  return (
+    await axios.delete(`http://localhost:8080/details/getByExport/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).data;
 };

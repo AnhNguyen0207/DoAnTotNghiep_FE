@@ -42,11 +42,11 @@ const ImageUpload = (props) => {
   return (
     <>
       {imageUrl ? (
-        <div style={{ width: "100%", height: "100%" }}>
-          {/* <img alt="example" style={{ width: '100%', height: '100%' }} src={imageUrl} onClick={() => setPreviewVisible(true)} /> */}
+        <div style={{ width: "160px", overflow: "hidden" }}>
           <Antd.Image
             width={"100%"}
             src={imageUrl}
+            maxScale={10}
             preview={{
               mask: (
                 <>
@@ -68,7 +68,7 @@ const ImageUpload = (props) => {
           />
         </div>
       ) : (
-        <div style={{ width: "100%", height: "100%" }}>
+        <div style={{ width: "160px", overflow: "hidden" }}>
           <label htmlFor="photo">
             <UploadBtn />
           </label>

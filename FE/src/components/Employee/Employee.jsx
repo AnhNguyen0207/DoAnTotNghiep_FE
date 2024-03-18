@@ -166,9 +166,6 @@ function Employee() {
         <Button onClick={() => setIsModalVisible(true)}>Thêm nhân viên</Button>
       </div>
       <Table
-        // rowSelection={{
-        //   type: "checkbox",
-        // }}
         columns={columns}
         query={accountApi}
         rowKey="id"

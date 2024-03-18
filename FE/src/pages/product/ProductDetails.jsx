@@ -75,7 +75,8 @@ const ProductDetails = () => {
                 icon: "success",
                 title: "Xóa thành công",
               });
-              navigate("/products");
+              debugger;
+              navigate("/warehouse/products");
             }
           })
           .catch((error) => {
@@ -377,8 +378,7 @@ const ProductDetails = () => {
           <hr />
           <div style={{ marginLeft: "20%", marginRight: "20%", marginTop: 10 }}>
             <Antd.Image
-              height={"80%"}
-              width={"100%%"}
+              width={"160px"}
               src={
                 focusVariant?.image
                   ? focusVariant.image

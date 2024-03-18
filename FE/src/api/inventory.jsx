@@ -1,21 +1,27 @@
 import axios from "axios";
 
-const headers = {
-  Authorization: "Bearer " + localStorage.getItem("token"),
-};
-
 export const getAllInventory = async () => {
-  return (await axios.get(`http://localhost:8080/inventories`, { headers }))
-    .data;
+  const token = localStorage.getItem("token");
+  return (
+    await axios.get(`http://localhost:8080/inventories`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).data;
 };
 
 export const getAllActiveInventory = async () => {
+  const token = localStorage.getItem("token");
   return await axios.get(`http://localhost:8080/inventories/active`, {
-    headers,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 };
 
 export const getPagination = async (page, pageSize, name, value) => {
+  const token = localStorage.getItem("token");
   return (
     await axios.get(`http://localhost:8080/inventories/pagination`, {
       params: {
@@ -26,81 +32,112 @@ export const getPagination = async (page, pageSize, name, value) => {
         name: name === "name" ? value : null,
         code: name === "code" ? value : null,
       },
-      headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
   ).data;
 };
 export const findInventoryById = async (id) => {
+  const token = localStorage.getItem("token");
   return (
-    await axios.get(`http://localhost:8080/inventories/${id}`, { headers })
+    await axios.get(`http://localhost:8080/inventories/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
   ).data;
 };
 
 export const createInventory = async (inventory) => {
+  const token = localStorage.getItem("token");
   return (
     await axios.post(`http://localhost:8080/inventories`, inventory, {
-      headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
   ).data;
 };
 
 export const updateInvetory = async (inventory, id) => {
+  const token = localStorage.getItem("token");
   return (
     await axios.put(`http://localhost:8080/inventories/${id}`, inventory, {
-      headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
   ).data;
 };
 
 export const deleteInvetory = async (id) => {
+  const token = localStorage.getItem("token");
   return await axios.put(
     `http://localhost:8080/inventories/delete/${id}`,
     { title: "Sửa trạng thái" },
     {
-      headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
 };
 
 export const updateStatusInventory = async (id) => {
+  const token = localStorage.getItem("token");
   return await axios.put(
     `http://localhost:8080/inventories/status/${id}`,
     { title: "Sửa tình trạng" },
     {
-      headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
 };
 
 export const getProductVariants = async (id, name = "") => {
+  const token = localStorage.getItem("token");
   return (
     await axios.get(`http://localhost:8080/inventories/productvariant/${id}`, {
       params: {
         name: name,
       },
-      headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
   ).data;
 };
 
 export const deleteListProductVariant = async (resultId) => {
+  const token = localStorage.getItem("token");
   return await axios.post(
     `http://localhost:8080/inventories/delete`,
     resultId,
-    { headers }
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
 };
 
 export const findInventoryByQuantity = async (id) => {
+  const token = localStorage.getItem("token");
   return await axios.get(`http://localhost:8080/inventories/quantity`, {
     params: {
       id: id,
     },
-    headers,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 };
 
 export const updateMinQuantityStorage = async (request) => {
+  const token = localStorage.getItem("token");
   return await axios.put(
     `http://localhost:8080/inventories/change/minquantity?inventoryId=${
       request.inventoryId * 1
@@ -108,6 +145,10 @@ export const updateMinQuantityStorage = async (request) => {
       request.minQuantity * 1
     }`,
     { title: "Sửa minquantity" },
-    { headers }
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
 };

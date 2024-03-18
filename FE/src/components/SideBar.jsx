@@ -2,7 +2,7 @@ import {
   AppstoreOutlined,
   TeamOutlined,
   ShopOutlined,
-  BarChartOutlined,
+  // BarChartOutlined,
   ImportOutlined,
   ExportOutlined,
 } from "@ant-design/icons";
@@ -12,14 +12,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import "../styles/SideBar.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import DashboardIcon from "@mui/icons-material/Dashboard";
 
-function getItem(
-  label,
-  key,
-  icons,
-  children
-  ) {
+function getItem(label, key, icons, children) {
   return {
     key,
     icons,
@@ -44,7 +39,7 @@ const MENUS = [
     getItem("Danh sách", "/admin/employees"),
     getItem("Chức vụ", "/admin/roles/"),
   ]),
-  getItem("Thống kê", "/statistics", <BarChartOutlined />),
+  // getItem("Thống kê", "/statistics", <BarChartOutlined />),
   getItem("Đăng xuất", "/login", <LogoutIcon />),
 ];
 

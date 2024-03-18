@@ -1,55 +1,70 @@
 import axios from "axios";
-const headers = {
-  Authorization: "Bearer " + localStorage.getItem("token"),
-};
 
 export const employeeDetailsApi = async (id) => {
+  const token = localStorage.getItem("token");
   return (
     await axios.get(`http://localhost:8080/api/account/${id}`, {
-      headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
   ).data;
 };
 
 export const updateEmployeeApi = async (data) => {
+  const token = localStorage.getItem("token");
   return axios.post("http://localhost:8080/api/roles/emp", data, {
-    headers,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 };
 
 export const employeesApi = async (id) => {
+  const token = localStorage.getItem("token");
   return (
     await axios.get("http://localhost:8080/api/account", {
-        params: {
-            id
-        },
-      headers,
+      params: {
+        id,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
   ).data;
 };
 
 export const rolesApi = async (page, pageSize) => {
+  const token = localStorage.getItem("token");
   return (
     await axios.get(`http://localhost:8080/api/admin/roles/${page}`, {
       params: { pageSize },
-      headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
   ).data;
 };
 
 export const accountApi = async (page, pageSize) => {
+  const token = localStorage.getItem("token");
   return (
     await axios.get(`http://localhost:8080/api/account/${page}`, {
       params: { pageSize },
-      headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
   ).data;
 };
 
 export const deleteEmpApi = async (id) => {
+  const token = localStorage.getItem("token");
   return await (
     await axios.delete(`http://localhost:8080/api/account/${id}`, {
-      headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
   ).data;
 };

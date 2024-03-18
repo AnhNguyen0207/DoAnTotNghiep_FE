@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { Form, Image, Input, message, notification } from "antd";
+import { Form, Image, Input, message, notification, Typography } from "antd";
 import axios from "axios";
 import Button from "../UI/Button";
 import PersonIcon from "@mui/icons-material/Person";
@@ -7,7 +7,7 @@ import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserStore } from "../features/user/userSlice";
 import useTitle from "../app/useTitle";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   useTitle("", "Đăng nhập");
@@ -83,11 +83,9 @@ const Login = () => {
           </div>
           <div className="self-center">
             <Form.Item className="text-center">
-              <Image
-                className="w-60 h-14 object-contain"
-                src="https://www.sapo.vn/Themes/Portal/Default/StylesV2/images/logo/Sapo-logo-birth.svg?v=202208310857"
-                preview={false}
-              />
+              <Typography.Paragraph strong className="text-2xl" style={{marginBottom: "0px"}}>
+                Đăng Nhập
+              </Typography.Paragraph>
             </Form.Item>
 
             <Form.Item

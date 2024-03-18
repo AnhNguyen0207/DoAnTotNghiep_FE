@@ -1,10 +1,22 @@
 import axios from "axios";
 
 export const getProducts = async () => {
-  return (await axios.get(`http://localhost:8080/api/product-variants/search`))
-    .data;
+  const token = localStorage.getItem("token");
+  return (
+    await axios.get(`http://localhost:8080/api/product-variants/search`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).data;
 };
 export const findProductById = async (id) => {
-  return (await axios.get(`http://localhost:8080/api/product-variants/${id}`))
-    .data;
+  const token = localStorage.getItem("token");
+  return (
+    await axios.get(`http://localhost:8080/api/product-variants/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).data;
 };

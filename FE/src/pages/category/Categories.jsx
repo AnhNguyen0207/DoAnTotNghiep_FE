@@ -3,10 +3,7 @@ import { Dropdown, Menu, Space, Table, Button } from "antd";
 import "../../styles/Category.css";
 import CategoryCreate from "./CategoryCreate";
 import CategoryUpdate from "./CategoriesUpdate";
-import {
-  deleteListCategory,
-  getCategories,
-} from "../../api/apiCategory";
+import { deleteListCategory, getCategories } from "../../api/apiCategory";
 import { Link } from "react-router-dom";
 import { DeleteOutlined, DownOutlined } from "@ant-design/icons";
 import Swal from "sweetalert2";
@@ -15,14 +12,13 @@ import { DeletedIcon } from "../../UI/ActionIcons";
 import Search from "antd/lib/input/Search";
 import useTitle from "../../app/useTitle";
 
-
 export default function Categories() {
-  useTitle("","Danh mục")
+  useTitle("", "Danh mục");
   const [response, setResponse] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [status, setStatus] = useState(false);
   const [reload, setReload] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(
     function getAll() {
@@ -31,16 +27,16 @@ export default function Categories() {
         .then((response) => {
           setResponse(response.data);
           setReload(false);
-
         })
         .catch((error) => {
           console.log(error);
         });
-    }, [status, inputValue]
+    },
+    [status, inputValue]
   );
   const handleSearch = (e) => {
     setInputValue(e.trim());
-  }
+  };
 
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -58,12 +54,10 @@ export default function Categories() {
     {
       title: "Mã danh mục",
       dataIndex: "id",
-      render:(id)=>{
-        return(
-          <a>{id}</a>
-        )
+      render: (id) => {
+        return <a>{id}</a>;
       },
-      sorter: (a, b) => a.id - b.id
+      sorter: (a, b) => a.id - b.id,
     },
     {
       title: "Tên danh mục",
@@ -83,17 +77,14 @@ export default function Categories() {
             status={() => setStatus(!status)}
             categoryProp={row}
           />
-          <DeletedIcon
-            className="text-red-500"
-            onClick={() => onDelete(row)}
-          />
+          <DeletedIcon className="text-red-500" onClick={() => onDelete(row)} />
         </Space>
-      )
+      ),
     },
   ];
 
   const handleMenuClick = (e) => {
-    if (e.key === 1) {
+    if (e.key === "1") {
       onDeleteList(selectedRowKeys);
     }
   };
@@ -103,11 +94,10 @@ export default function Categories() {
       onClick={handleMenuClick}
       items={[
         {
-
           label: <Link to="#">Xóa danh mục</Link>,
           key: "1",
           icon: <DeleteOutlined />,
-          danger: true
+          danger: true,
         },
       ]}
     />
@@ -122,14 +112,14 @@ export default function Categories() {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Xác nhận",
-      cancelButtonText: "Thoát"
+      cancelButtonText: "Thoát",
     }).then((result) => {
       if (result.isConfirmed) {
         deleteListCategory(listId).then(() => {
           ToastCustom.fire({
             icon: "success",
             title: "Xoá thành công!",
-          }).then((r) => { });
+          }).then((r) => {});
           setStatus(!status);
           setSelectedRowKeys([]);
         });
@@ -146,16 +136,16 @@ export default function Categories() {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Xác nhận",
-      cancelButtonText: "Thoát"
+      cancelButtonText: "Thoát",
     }).then((result) => {
       if (result.isConfirmed) {
         const listId = [];
-        listId.push(row.id)
+        listId.push(row.id);
         deleteListCategory(listId).then(() => {
           ToastCustom.fire({
             icon: "success",
             title: "Xoá thành công!",
-          }).then((r) => { });
+          }).then((r) => {});
           setStatus(!status);
           setSelectedRowKeys([]);
         });
@@ -165,7 +155,7 @@ export default function Categories() {
 
   return (
     <div className="m-5">
-      <h1 style={{ fontSize: '30px', marginRight: 10}}  >Danh sách danh mục </h1>
+      <h1 style={{ fontSize: "30px", marginRight: 10 }}>Danh sách danh mục </h1>
       <div
         style={{
           marginBottom: 16,
@@ -176,7 +166,15 @@ export default function Categories() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <Dropdown overlay={menu} disabled={!hasSelected}>
-            <Button type="primary" style={{ width: "180px", fontSize: "14px", marginLeft: "0px", height:"37px" }}>
+            <Button
+              type="primary"
+              style={{
+                width: "180px",
+                fontSize: "14px",
+                marginLeft: "0px",
+                height: "37px",
+              }}
+            >
               Thao tác
               <DownOutlined />
             </Button>
@@ -187,7 +185,12 @@ export default function Categories() {
         </div>
         <div>
           <Space>
-            <Search style={{ width: "300px"}} placeholder="Tìm kiếm theo tên, mã danh mục" size="large" onSearch={(e) => handleSearch(e)} />
+            <Search
+              style={{ width: "300px" }}
+              placeholder="Tìm kiếm theo tên, mã danh mục"
+              size="large"
+              onSearch={(e) => handleSearch(e)}
+            />
             <CategoryCreate status={() => setStatus(!status)} />
           </Space>
         </div>

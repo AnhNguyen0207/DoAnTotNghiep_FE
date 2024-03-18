@@ -7,8 +7,7 @@ import axios from "axios";
 import { Button } from "../../UI";
 import { PlusCircleOutlined } from "@ant-design/icons";
 
-
-export default function Role( roles, empId, refetch ) {
+export default function Role({ roles, empId, refetch }) {
   const updateRole = useMutation(
     (data) => {
       return axios.patch(

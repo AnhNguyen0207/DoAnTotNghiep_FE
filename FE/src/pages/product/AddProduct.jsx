@@ -39,8 +39,7 @@ function AddProduct(props) {
   const [variants, setVariants] = useState(initVariants);
   const [product, setProduct] = useState(props.product);
   const [categories, setCategories] = useState([]);
-  const [selectCategories, setSelectCategories] =
-    useGridRegisterStrategyProcessor([]);
+  const [selectCategories, setSelectCategories] = useState([]);
 
   const [open, setOpen] = React.useState(false);
 

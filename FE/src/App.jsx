@@ -69,7 +69,6 @@ const App = () => {
         {
           path: "stocker/supplier",
           children: [
-            // {path: "add", element: <CategoryAdd/>},
             { path: "", element: <SupplierList /> },
             { path: "details/:id", element: <SupplierDetails /> },
           ],
@@ -77,7 +76,6 @@ const App = () => {
         {
           path: "coordinator/purchase_orders",
           children: [
-            // {path: "add", element: <CategoryAdd/>},
             { path: "", element: <ListImportInvoice /> },
             { path: "create", element: <CreateImport /> },
             { path: "details/:code", element: <DetailImportInvoice /> },
@@ -96,18 +94,6 @@ const App = () => {
             { path: ":id", element: <ProductDetails /> },
           ],
         },
-        // {
-        //   path: "/products",
-        //   children: [
-        //
-        //     {
-        //       path: "/products/add",
-        //       element: <AddProduct />,
-        //     },
-        //     { index: true, element: <ListProduct /> },
-        //     { path: "/products/:id", element: <ProductDetails /> },
-        //   ],
-        // },
         {
           path: "/statistics",
           element: <Statistics />,
