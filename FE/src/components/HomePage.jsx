@@ -1,4 +1,4 @@
-import Buttonn from "../UI/Button";
+import Buttonn from "../common_components/Button";
 
 export default function HomePage() {
   return (

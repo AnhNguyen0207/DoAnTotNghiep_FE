@@ -25,18 +25,18 @@ import React, { useEffect, useState } from "react";
 
 import NumberFormat from "react-number-format";
 import Moment from "react-moment";
-import { DeletedIcon } from "../../UI";
+import { DeletedIcon } from "../../common_components";
 import Swal from "sweetalert2";
-import ToastCustom from "../../features/toast/Toast";
+import ToastCustom from "../../constant/Toast";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { useMutation } from "@tanstack/react-query";
-import Buttonn from "../../UI/Button";
+import Buttonn from "../../common_components/Button";
 import AddIcon from "@mui/icons-material/Add";
-import useTitle from "../../app/useTitle";
+import useTitle from "../../constant/useTitle";
 import InventoryByQuantity from "./InventoryByQuantity";
 
 const InventoryManager = () => {
-  useTitle("Quản lý kho","Quản lý kho");
+  useTitle("Quản lý kho", "Quản lý kho");
   const { Search } = Input;
   const { id } = useParams();
   const [inventory, setInventory] = useState({});
@@ -50,8 +50,6 @@ const InventoryManager = () => {
   const [name, setName] = useState("");
   const [minQuantityForm] = Form.useForm();
   const navigate = useNavigate();
-
-  
 
   useEffect(() => {
     setReload(true);
@@ -85,17 +83,13 @@ const InventoryManager = () => {
     });
   };
 
-  const columns= [
+  const columns = [
     {
       title: "Ảnh",
       dataIndex: "image",
       render: (img) => {
         return (
-          <Image
-            width={45}
-            src={img}
-            onClick={(e) => e.stopPropagation()}
-          />
+          <Image width={45} src={img} onClick={(e) => e.stopPropagation()} />
         );
       },
     },
@@ -147,7 +141,9 @@ const InventoryManager = () => {
                   />
                 }
               >
-                {Intl.NumberFormat("en", { notation: "compact" }).format(quantity.quantity)}
+                {Intl.NumberFormat("en", { notation: "compact" }).format(
+                  quantity.quantity
+                )}
               </Tooltip>
             </Col>
             <Col span={3}>
@@ -156,8 +152,16 @@ const InventoryManager = () => {
                   quantity.minQuantity === 0
                     ? "Thêm giới hạn cảnh báo"
                     : quantity.quantity > quantity.minQuantity
-                      ? `Còn hàng ${quantity?.quantity?.toLocaleString() || 'Chưa xét SL'} / ${quantity?.minQuantity?.toLocaleString() || 'Chưa xét SL'}`
-                      : `Sắp hết hàng ${quantity?.quantity?.toLocaleString() || 'Chưa xét SL'} / ${quantity?.minQuantity?.toLocaleString() || 'Chưa xét SL'}`
+                    ? `Còn hàng ${
+                        quantity?.quantity?.toLocaleString() || "Chưa xét SL"
+                      } / ${
+                        quantity?.minQuantity?.toLocaleString() || "Chưa xét SL"
+                      }`
+                    : `Sắp hết hàng ${
+                        quantity?.quantity?.toLocaleString() || "Chưa xét SL"
+                      } / ${
+                        quantity?.minQuantity?.toLocaleString() || "Chưa xét SL"
+                      }`
                 }
               >
                 {quantity?.minQuantity ? (
@@ -244,7 +248,7 @@ const InventoryManager = () => {
           ToastCustom.fire({
             icon: "success",
             title: "Xoá thành công!",
-          }).then((r) => { });
+          }).then((r) => {});
           setStatus(!status);
           setSelectedRowKeys([]);
         });
@@ -272,7 +276,7 @@ const InventoryManager = () => {
           ToastCustom.fire({
             icon: "success",
             title: "Xoá thành công!",
-          }).then((r) => { });
+          }).then((r) => {});
           setStatus(!status);
           setSelectedRowKeys([]);
         });
@@ -320,7 +324,12 @@ const InventoryManager = () => {
         </h2>
         <div>
           <Space>
-            {inventory?.id ? <InventoryByQuantity inventoryId={inventory?.id} status={status}/> : null}
+            {inventory?.id ? (
+              <InventoryByQuantity
+                inventoryId={inventory?.id}
+                status={status}
+              />
+            ) : null}
             <Button
               type="primary"
               onClick={() => navigate(`../warehouse/categories`)}
@@ -389,31 +398,26 @@ const InventoryManager = () => {
             <h1 style={{ color: "#1890FF" }}>Thông tin kho</h1>
             <form>
               <Row gutter={24}>
-
                 <Col span={8}>
                   <p>Trạng thái:</p>
                 </Col>
                 <Col span={16}>
-                  
-                    {inventory?.isDelete ?
-                      (<Tag
-                        style={{ borderRadius: "15px", padding: "3px 10px"}}
-                        color={`rgb(246 76 114)`}
-                      >
-                        Ngừng hoạt động
-                      </Tag>)
-                      :
-                      (<Tag
-                        style={{ borderRadius: "15px", padding: "3px 10px"}}
-                        color={"green" || `rgb(159 237 207)`}
-                      >
-                        Đang hoạt động
-                      </Tag>)
-                    }
-               
+                  {inventory?.isDelete ? (
+                    <Tag
+                      style={{ borderRadius: "15px", padding: "3px 10px" }}
+                      color={`rgb(246 76 114)`}
+                    >
+                      Ngừng hoạt động
+                    </Tag>
+                  ) : (
+                    <Tag
+                      style={{ borderRadius: "15px", padding: "3px 10px" }}
+                      color={"green" || `rgb(159 237 207)`}
+                    >
+                      Đang hoạt động
+                    </Tag>
+                  )}
                 </Col>
-
-
 
                 <Col span={8}>
                   <p>Mã kho:</p>
@@ -428,7 +432,6 @@ const InventoryManager = () => {
                 <Col span={16}>
                   <b style={{ textTransform: "uppercase" }}>{inventory.name}</b>
                 </Col>
-
 
                 <Col span={8}>
                   <p>Số lượng phiên bản sản phẩm:</p>

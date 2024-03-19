@@ -4,7 +4,7 @@ import { useState } from "react";
 import RoleSelect from "./RoleSelect";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { Button } from "../../UI";
+import { Button } from "../../common_components";
 import { PlusCircleOutlined } from "@ant-design/icons";
 
 export default function Role({ roles, empId, refetch }) {

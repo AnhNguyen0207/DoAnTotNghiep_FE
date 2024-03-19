@@ -3,10 +3,10 @@ import { Avatar, Form, Input, message, Modal, Space } from "antd";
 import axios from "axios";
 import Role from "./Role";
 import RoleSelect from "./RoleSelect";
-import { Button, DeletedIcon, Table, PenIcon } from "../../UI";
-import { accountApi, deleteEmpApi } from "../../api/EmployeesApi";
+import { Button, DeletedIcon, Table, PenIcon } from "../../common_components";
+import { accountApi, deleteEmpApi } from "../../api/employeesApi";
 import { useState } from "react";
-import useTitle from "../../app/useTitle";
+import useTitle from "../../constant/useTitle";
 import Swal from "sweetalert2";
 import UploadImg from "./UploadImg";
 
@@ -102,7 +102,8 @@ function Employee() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [reRender, setReRender] = useState(false);
   const [employeeForm] = Form.useForm();
-  const postEmployee = useMutation((newEmployee) => {
+  const postEmployee = useMutation(
+    (newEmployee) => {
       return axios.post("http://localhost:8080/api/account", newEmployee, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -142,8 +143,6 @@ function Employee() {
     });
   };
   const deleteEmpHandle = (id, record) => {
-    console.log(id);
-
     Swal.fire({
       icon: "question",
       title: "Thay đổi trạng thái",

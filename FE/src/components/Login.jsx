@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { Form, Image, Input, message, notification, Typography } from "antd";
 import axios from "axios";
-import Button from "../UI/Button";
+import Button from "../common_components/Button";
 import PersonIcon from "@mui/icons-material/Person";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserStore } from "../features/user/userSlice";
-import useTitle from "../app/useTitle";
+import { setUserStore } from "../store/userSlice";
+import useTitle from "../constant/useTitle";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -83,7 +83,11 @@ const Login = () => {
           </div>
           <div className="self-center">
             <Form.Item className="text-center">
-              <Typography.Paragraph strong className="text-2xl" style={{marginBottom: "0px"}}>
+              <Typography.Paragraph
+                strong
+                className="text-2xl"
+                style={{ marginBottom: "0px" }}
+              >
                 Đăng Nhập
               </Typography.Paragraph>
             </Form.Item>

@@ -1,6 +1,6 @@
 import { Select, Form, Popconfirm } from "antd";
 import React, { useState } from "react";
-import { findProductById, getProducts } from "../../api/product_variant";
+import { findProductById, getProducts } from "../../api/productVariant";
 import "./file.css";
 import { getAllInventory } from "../../api/inventory";
 import { Radio, Table } from "antd";
@@ -29,7 +29,6 @@ const Search = () => {
       return [...prev];
     });
   };
-  console.log(products);
   const handleDelete = (e) => {
     // const id = e.target.id * 1;
     const newData = products.filter(
@@ -56,7 +55,6 @@ const Search = () => {
       title: "Số lượng",
       dataIndex: ["quantity", "getProductById"],
       render: (a, text) => {
-        console.log(text);
         return (
           <input
             type={"number"}
@@ -125,7 +123,6 @@ const Search = () => {
         });
         return [...prev];
       });
-      console.log("san pham da chon");
     }
   };
   /* ------------------ select inventory --------------- */
@@ -135,7 +132,6 @@ const Search = () => {
     const getListInventories = async () => {
       const listInventory = await getAllInventory();
       setInventory(listInventory.data);
-      console.log(listInventory.data);
     };
     getListInventories();
   });

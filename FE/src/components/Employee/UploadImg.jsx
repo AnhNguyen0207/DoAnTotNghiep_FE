@@ -21,8 +21,6 @@ const UploadImg = () => {
   const [imageUrl, setImageUrl] = useState("");
 
   const handleChange= (info) => {
-    console.log("info", info);
-
     if (info.file.status === "uploading") {
       setLoading(true);
       return;

@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Breadcrumb, Button, Form, Input, Skeleton } from "antd";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { employeeDetailsApi } from "../../api/EmployeesApi";
+import { employeeDetailsApi } from "../../api/employeesApi";
 import RoleSelect from "./RoleSelect";
 
 export default function EmployeeDetails() {
@@ -13,7 +13,6 @@ export default function EmployeeDetails() {
   const setRole = () => {};
   const { data, isLoading, error } = useQuery(["empDetails"], () =>
     employeeDetailsApi(id)
-
   );
 
   const updateEmployee = useMutation((employeeDetail) =>
@@ -23,7 +22,6 @@ export default function EmployeeDetails() {
   const updateEmployeeHandle = () => {
     const { username, fullName, email, phone, address, roles } =
       infomationEmployeeForm.getFieldsValue();
-    // console.log(username, fullName, email, phone, address, roles);
     updateEmployee.mutate({
       username,
       fullName,
@@ -32,8 +30,6 @@ export default function EmployeeDetails() {
       address,
       roles,
     });
-
-    console.log(updateEmployee);
   };
 
   if (isLoading) {
@@ -86,10 +82,7 @@ export default function EmployeeDetails() {
                   <Input.Password />
                 </Form.Item>
                 <Form.Item {...{ wrapperCol: { offset: 8, span: 12 } }}>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                  >
+                  <Button type="primary" htmlType="submit">
                     Update
                   </Button>
                 </Form.Item>
@@ -101,7 +94,6 @@ export default function EmployeeDetails() {
               {...{ labelCol: { span: 4 }, wrapperCol: { span: 16 } }}
               name="updateInfomationEmployee"
               onFinish={updateEmployeeHandle}
-              //   onFinishFailed={() => console.log(currentRoles)}
               form={infomationEmployeeForm}
             >
               <Form.Item
