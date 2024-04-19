@@ -37,11 +37,6 @@ const SupplierUpdate = ({ supplier, isVisible, setIsVisible }) => {
       });
   };
   const [visible, setVisible] = useState(isVisible);
-  // const [confirmLoading, setConfirmLoading] = useState(false);
-
-  // const showModal = () => {
-  //     setVisible(true);
-  // };
 
   const handleCancel = () => {
     setVisible(false);
@@ -118,7 +113,7 @@ const SupplierUpdate = ({ supplier, isVisible, setIsVisible }) => {
               <Col span={12}>
                 <Form.Item label="Trạng thái" name="statusTransaction">
                   <Select dropdownStyle={{ height: 100, width: 300 }}>
-                    <Option style={{ width: 400 }} value="true">
+                    <Option style={{ width: 295 }} value="true">
                       Đang giao dịch
                     </Option>
                     <Option value="false">Ngừng giao dịch</Option>

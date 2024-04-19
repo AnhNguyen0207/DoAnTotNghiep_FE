@@ -23,10 +23,12 @@ export const userSlice = createSlice({
     setUserStore: (state, action) => {
       const d = decodeToken(action.payload.token);
       localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("account_id", action.payload.accountId);
       return d?.userDetails || state;
     },
     logout: () => {
       localStorage.removeItem("token");
+      localStorage.removeItem("account_id");
       return initialUserState;
     },
   },

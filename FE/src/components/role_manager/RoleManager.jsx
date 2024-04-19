@@ -89,11 +89,11 @@ const RoleManager = () => {
                 setMode("update");
               }}
             />
-            <DeletedIcon
+            {/* <DeletedIcon
               onClick={() => {
                 deleteRoles([record.id]);
               }}
-            />
+            /> */}
           </Space>
         );
       },
@@ -150,7 +150,7 @@ const RoleManager = () => {
     <div className="p-5">
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
-          <Button
+          {/* <Button
             onClick={deleteRoles}
             disabled={!hasSelected}
             loading={deleteRoleMutation.isLoading}
@@ -160,7 +160,7 @@ const RoleManager = () => {
           </Button>
           <span style={{ marginLeft: 8 }}>
             {hasSelected ? `Đã chọn ${selectedRowKeys.length} mục` : ""}
-          </span>
+          </span> */}
           {/* <Button
             type="primary"
             onClick={() => {
@@ -174,7 +174,7 @@ const RoleManager = () => {
       </div>
 
       <Table
-        rowSelection={rowSelection}
+        // rowSelection={rowSelection}
         query={rolesApi}
         columns={columns}
         rowKey="id"

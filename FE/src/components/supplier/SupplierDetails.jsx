@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import {
   findAccountById,
@@ -16,9 +16,13 @@ import {
 import SupplierUpdate from "./SupplierUpdate";
 import { ImportInvoiceColumnBySupplier } from "../../common_components/Datatablesource";
 import useTitle from "../../constant/useTitle";
+import ToastCustom from "../../constant/Toast";
+import { deleteSupplier } from "../../api/api";
+import Swal from "sweetalert2";
 
 const SupplierDetails = () => {
   useTitle("Chi tiết nhà cung cấp", "Nhà cung cấp");
+  const navigate = useNavigate();
   const { id } = useParams();
   const [supplier, setSupplier] = useState({});
   const [importInvoiceBySupplier, setImportInvoiceBySupplier] = useState([]);
@@ -34,22 +38,39 @@ const SupplierDetails = () => {
     getImportInvoiceBySupplier(parseInt(id)).then((supplier) => {
       setImportInvoiceBySupplier(supplier.data);
     });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [isLoadModal, setIsLoadModal] = useState(false);
 
   const handleMenuClick = (e) => {
-    // switch (e.key) {
-    //     case '1':
-    //         // onUpdateTrueStatus(selectedRowKeys);
-    //         break
-    //     case '2':
-    //         // setIsLoadModal(true)
-    //         break;
-    // }
+    if (e.key === "1") {
+      onDelete([id])
+    }
   };
+
+  const onDelete = (listId) => {
+    Swal.fire({
+      title: "Bạn có chắc?",
+      text: "Bạn không thể hồi phục lại dữ liệu!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteSupplier(listId).then(() => {
+          ToastCustom.fire({
+            icon: "success",
+            title: "Xoá thành công",
+          }).then((r) => {
+            navigate("/stocker/supplier");
+          });
+        });
+      }
+    });
+  };
+
   const menu = (
     <Menu
       onClick={handleMenuClick}

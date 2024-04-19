@@ -42,7 +42,7 @@ const CreateImport = () => {
   const [supplierId, setSupplierId] = useState();
   const [inventoryId, setInventoryId] = useState(0);
   const [productVariants, setProductVariants] = useState([]);
-  const [listAllProductVariant, setListAllProductVariant] = useState < [];
+  const [listAllProductVariant, setListAllProductVariant] = useState ([]);
   const [totalPage, setTotalPage] = useState(0);
   const [tableData, setTableData] = useState([]);
 

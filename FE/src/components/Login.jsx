@@ -28,7 +28,8 @@ const Login = () => {
       onSuccess(data, variables, context) {
         dispatch(
           setUserStore({
-            token: data.accessToken,
+              token: data.accessToken,
+              accountId: data.accountId
           })
         );
         openNotification();

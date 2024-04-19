@@ -128,7 +128,7 @@ export const findInventoryByQuantity = async (id) => {
   const token = localStorage.getItem("token");
   return await axios.get(`http://localhost:8080/inventories/quantity`, {
     params: {
-      id: id,
+        id: id.inventoryId,
     },
     headers: {
       Authorization: `Bearer ${token}`,

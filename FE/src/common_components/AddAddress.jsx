@@ -7,22 +7,22 @@ const AddAddress = ({ onChange, keyChange }) => {
   const onChangeProvinces = (value) => {
     setProvinceCode(value);
     const item = provinces.find((p) => {
-      return p.code.toString() === value;
+      return p.id.toString() === value;
     });
-    item && setProvinceName(", " + item.name + ", ");
+    item && setProvinceName(", " + item.name);
   };
   const onChangeDistrict = (value) => {
     setDistrictCode(value);
     const item = districts.find((d) => {
-      return d.code.toString() === value;
+      return d.id.toString() === value;
     });
-    item && setDistrictName(item.name + ", ");
+    item && setDistrictName(", " + item.name);
   };
   const onChangeWard = (value) => {
     const item = wards.find((w) => {
-      return w.code.toString() === value;
+      return w.id.toString() === value;
     });
-    item && setWardName(item.name);
+    item && setWardName(", " + item.name);
   };
   const [provinces, setProvinces] = useState([{}]);
   const [districts, setDistricts] = useState([{}]);
@@ -36,7 +36,7 @@ const AddAddress = ({ onChange, keyChange }) => {
   const [districtCode, setDistrictCode] = useState();
   const [detailAddress, setDetailAddress] = useState("");
 
-  let address = detailAddress + provinceName + districtName + wardName;
+  let address = detailAddress + wardName + districtName + provinceName;
 
   useEffect(() => {
     onChange(address);
@@ -54,21 +54,21 @@ const AddAddress = ({ onChange, keyChange }) => {
 
   useEffect(() => {
     getProvince().then((p) => {
-      setProvinces(p.data);
+      setProvinces(p.data.data);
     });
   }, []);
 
   useEffect(() => {
     provinceCode &&
       getDistrict(provinceCode).then((d) => {
-        setDistricts(d.data.districts);
+        setDistricts(d.data.data);
       });
   }, [provinceCode]);
 
   useEffect(() => {
     districtCode &&
       getWard(districtCode).then((w) => {
-        setWards(w.data.wards);
+        setWards(w.data.data);
       });
   }, [districtCode]);
 
@@ -110,7 +110,11 @@ const AddAddress = ({ onChange, keyChange }) => {
             >
               {provinces &&
                 provinces.map((p, key) => (
-                  <Option key={key} style={{ width: 400 }} value={p.code}>
+                  <Option
+                    key={key}
+                    style={{ height: 37, width: 290 }}
+                    value={p.id}
+                  >
                     {p.name}
                   </Option>
                 ))}
@@ -140,7 +144,11 @@ const AddAddress = ({ onChange, keyChange }) => {
             >
               {districts.length > 1 ? (
                 districts.map((d, key) => (
-                  <Option key={key} style={{ width: 400 }} value={d.code}>
+                  <Option
+                    key={key}
+                    style={{ height: 37, width: 290 }}
+                    value={d.id}
+                  >
                     {d.name}
                   </Option>
                 ))
@@ -174,7 +182,11 @@ const AddAddress = ({ onChange, keyChange }) => {
             >
               {wards.length > 1 ? (
                 wards.map((w, key) => (
-                  <Option key={key} style={{ width: 400 }} value={w.code}>
+                  <Option
+                    key={key}
+                    style={{ height: 37, width: 290 }}
+                    value={w.id}
+                  >
                     {w.name}
                   </Option>
                 ))

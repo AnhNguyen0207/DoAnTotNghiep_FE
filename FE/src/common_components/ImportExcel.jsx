@@ -35,18 +35,31 @@ const ImportExcel = ({ reload }) => {
 
   const handleUpload = () => {
     let formData = new FormData();
+    if (file === "") {
+      ToastCustom.fire({
+        icon: "error",
+        title: "Vui lòng nhập file",
+      }).then();
+      return;
+    }
     formData.append("file", file);
     formData.append("name", file.name);
+    const token = localStorage.getItem("token");
+    const accountId = localStorage.getItem("account_id");
     axios({
-      url: "http://localhost:8080/api/suppliers/upload",
+      url: `http://localhost:8080/api/suppliers/upload?account_id=${accountId}`,
       method: "POST",
       data: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => {
         ToastCustom.fire({
           icon: "success",
           title: "Upload file thành công",
         }).then();
+        setIsModalVisible(false);
         reload();
       })
       .catch((ex) => {

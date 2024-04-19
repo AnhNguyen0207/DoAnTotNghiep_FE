@@ -9,9 +9,13 @@ const ExportExcel = () => {
     const link = document.createElement("a");
     link.target = "_blank";
     link.download = "supplier";
+    const token = localStorage.getItem("token");
     axios
       .get("http://localhost:8080/api/suppliers/download", {
         responseType: "blob",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((res) => {
         link.href = URL.createObjectURL(

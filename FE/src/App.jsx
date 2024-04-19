@@ -1,4 +1,4 @@
-import { useRoutes } from "react-router-dom";
+import {useRoutes} from "react-router-dom";
 import React from "react";
 
 import Dashboard from "./components/Dashboard";
@@ -13,17 +13,17 @@ import TransportCompanies from "./components/transport_company/TransportCompanie
 import HomePage from "./components/home/HomePage";
 import EmployeeDetails from "./components/employee/Details";
 import Employee from "./components/employee/Employee";
-import RoleManager from "./components/RoleManager/RoleManager";
+import RoleManager from "./components/role_manager/RoleManager";
 import CreateImport from "./components/import_invoice/CreateImport";
 import InventoryList from "./components/inventory/InventoryList";
 import ListImportInvoice from "./components/import_invoice/ListImportInvoice";
 import DetailImportInvoice from "./components/import_invoice/DetailImportInvoice";
 import ProductDetails from "./components/product/ProductDetails";
 import CreateReturnImportInvoice from "./components/import_invoice/CreateReturnImportInvoice";
-import { useDispatch } from "react-redux";
-import { setUserStore } from "./store/userSlice";
+import {useDispatch} from "react-redux";
+import {setUserStore} from "./store/userSlice";
 import Statistics from "./components/statistics/Statistics";
-import { Status } from "./components/stock_transfers/Status";
+import {Status} from "./components/stock_transfers/Status";
 import Create from "./components/stock_transfers/Create";
 import InventoryManager from "./components/inventory/InventoryManager";
 import Edit from "./components/stock_transfers/Edit";
@@ -32,7 +32,8 @@ const App = () => {
   const dispatch = useDispatch();
   dispatch(
     setUserStore({
-      token: localStorage.getItem("token") || "",
+      accountId: localStorage.getItem("account_id") || "",
+      token: localStorage.getItem("token") || ""
     })
   );
   const router = useRoutes([

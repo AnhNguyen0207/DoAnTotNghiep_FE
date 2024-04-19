@@ -54,14 +54,14 @@ export const getSupplierById = async (id) => {
 };
 
 export const getProvince = async () => {
-  return await axios.get(`https://provinces.open-api.vn/api/p`);
+  return await axios.get(`https://esgoo.net/api-tinhthanh/1/0.htm`);
 };
 
 export const getDistrict = async (code) => {
-  return await axios.get(`https://provinces.open-api.vn/api/p/${code}?depth=2`);
+  return await axios.get(`https://esgoo.net/api-tinhthanh/2/${code}.htm`);
 };
 export const getWard = async (code) => {
-  return await axios.get(`https://provinces.open-api.vn/api/d/${code}?depth=2`);
+  return await axios.get(`https://esgoo.net/api-tinhthanh/3/${code}.htm`);
 };
 
 export const getProductVariant = async (pageNumber, searchValue) => {

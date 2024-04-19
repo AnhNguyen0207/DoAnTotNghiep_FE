@@ -82,7 +82,7 @@ const SupplierList = () => {
         deleteSupplier(listId).then(() => {
           ToastCustom.fire({
             icon: "success",
-            title: "Delete category successfully",
+            title: "Xoá thành công",
           }).then((r) => {});
           setReload(!reload);
           setIsLoading(true);
@@ -169,14 +169,7 @@ const SupplierList = () => {
             {hasSelected ? `Selected ${selectedRowKeys.length} istems` : ""}
           </span>
           <ImportExcel reload={() => setReload(!reload)} />
-
           <ExportExcel />
-          {/*<div>*/}
-          {/*    <label htmlFor="file-upload" className="custom-file-upload">*/}
-          {/*        <UploadOutlined/>   Xuất excel*/}
-          {/*    </label>*/}
-          {/*    <input  id="file-upload" type="file"/>*/}
-          {/*</div>*/}
         </div>
         <div>
           <SupplierCreate reload={() => setReload(!reload)} />
