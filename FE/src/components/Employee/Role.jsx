@@ -62,7 +62,7 @@ export default function Role({ roles, empId, refetch }) {
       )}
       <Modal
         title="Role"
-        visible={modal}
+        open={modal}
         onOk={() => updateRoles()}
         onCancel={() => setModal(false)}
         destroyOnClose

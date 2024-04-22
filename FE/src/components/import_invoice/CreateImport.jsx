@@ -502,7 +502,7 @@ const CreateImport = () => {
                     title="Chọn nhiều sản phẩm"
                     centered
                     bodyStyle={{ overflowY: "scroll" }}
-                    visible={visible}
+                    open={visible}
                     onCancel={onCancel}
                     width={1000}
                     footer={[

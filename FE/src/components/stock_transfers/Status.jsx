@@ -272,6 +272,81 @@ export const Status = () => {
     }, 1000);
   }, []);
 
+  const itemTabs = [
+    {
+      key: "1",
+      label: "Thông tin sản phẩm",
+      style: { backgroundColor: "while" },
+      children: (
+        <>
+          <Table
+            rowKey="uid"
+            columns={columns}
+            dataSource={dataProductExport}
+            loading={loading}
+            pagination={false}
+          />
+        </>
+      ),
+    },
+  ];
+
+  const itemSteps = [
+    {
+      status:
+        status?.statusCancel && status?.status === 0
+          ? "error"
+          : status?.status === 0
+          ? "finish"
+          : "finish",
+      title:
+        status?.statusCancel && status?.status === 0 ? "Đã huỷ" : "Chờ chuyển",
+
+      description:
+        status?.statusCancel && status?.status === 0
+          ? moment(status?.dateCancel).format("DD/MM/YYYY HH:mm")
+          : moment(status?.createAt).format("DD/MM/YYYY HH:mm"),
+    },
+    {
+      status:
+        status?.statusCancel && status?.status === 1
+          ? "error"
+          : (status?.status || 0) > 1
+          ? "finish"
+          : status?.status === 1
+          ? "finish"
+          : "process",
+
+      title:
+        status?.statusCancel && status?.status === 1 ? "Đã huỷ" : "Đang chuyển",
+
+      description:
+        status?.statusCancel && status?.status === 1
+          ? moment(status?.dateCancel).format("DD/MM/YYYY HH:mm")
+          : status?.dateSend
+          ? status?.dateSend
+          : " ",
+    },
+    {
+      status:
+        status?.statusCancel && status?.status === 2
+          ? "error"
+          : status?.status === 2
+          ? "finish"
+          : "process",
+
+      title:
+        status?.statusCancel && status?.status === 2 ? "Đã huỷ" : "Nhận hàng",
+
+      description:
+        status?.statusCancel && status?.status === 2
+          ? moment(status?.dateCancel).format("DD/MM/YYYY HH:mm")
+          : status?.dateReceive
+          ? status?.dateReceive
+          : " ",
+    },
+  ];
+
   return (
     <Spin spinning={spin}>
       <div className="p-5">
@@ -330,7 +405,7 @@ export const Status = () => {
               )
             }
             // open={isModalOpen}
-            visible={isModalOpen}
+            open={isModalOpen}
             onOk={handleOk}
             onCancel={handleCancel}
             okText={"Xác nhận"}
@@ -377,7 +452,7 @@ export const Status = () => {
           <Modal
             title={"Bạn chắc chắn muốn hủy phiếu chuyển hàng này?"}
             // open={isModalOpen}
-            visible={isModalCancel}
+            open={isModalCancel}
             onOk={handleOkCancel}
             onCancel={handleCancel}
             okText={"Xác nhận"}
@@ -484,71 +559,8 @@ export const Status = () => {
               current={status?.status}
               size="small"
               labelPlacement="vertical"
-            >
-              <Steps.Step
-                status={
-                  status?.statusCancel && status?.status === 0
-                    ? "error"
-                    : status?.status === 0
-                    ? "finish"
-                    : "finish"
-                }
-                title={
-                  status?.statusCancel && status?.status === 0
-                    ? "Đã huỷ"
-                    : "Chờ chuyển"
-                }
-                description={
-                  status?.statusCancel && status?.status === 0
-                    ? moment(status?.dateCancel).format("DD/MM/YYYY HH:mm")
-                    : moment(status?.createAt).format("DD/MM/YYYY HH:mm")
-                }
-              />
-              <Steps.Step
-                status={
-                  status?.statusCancel && status?.status === 1
-                    ? "error"
-                    : (status?.status || 0) > 1
-                    ? "finish"
-                    : status?.status === 1
-                    ? "finish"
-                    : "process"
-                }
-                title={
-                  status?.statusCancel && status?.status === 1
-                    ? "Đã huỷ"
-                    : "Đang chuyển"
-                }
-                description={
-                  status?.statusCancel && status?.status === 1
-                    ? moment(status?.dateCancel).format("DD/MM/YYYY HH:mm")
-                    : status?.dateSend
-                    ? status?.dateSend
-                    : " "
-                }
-              />
-              <Steps.Step
-                status={
-                  status?.statusCancel && status?.status === 2
-                    ? "error"
-                    : status?.status === 2
-                    ? "finish"
-                    : "process"
-                }
-                title={
-                  status?.statusCancel && status?.status === 2
-                    ? "Đã huỷ"
-                    : "Nhận hàng"
-                }
-                description={
-                  status?.statusCancel && status?.status === 2
-                    ? moment(status?.dateCancel).format("DD/MM/YYYY HH:mm")
-                    : status?.dateReceive
-                    ? status?.dateReceive
-                    : " "
-                }
-              />
-            </Steps>
+              items={itemSteps}
+            />
           </div>
         </div>
 
@@ -565,7 +577,7 @@ export const Status = () => {
             >
               <Modal
                 title="Lịch sử thao tác phiếu chuyển hàng"
-                visible={visible}
+                open={visible}
                 onCancel={hideModal}
                 footer={null}
                 width={"50%"}
@@ -843,21 +855,7 @@ export const Status = () => {
             marginTop: "20px",
           }}
         >
-          <Tabs defaultActiveKey="1">
-            <Tabs.TabPane
-              tab="Thông tin sản phẩm"
-              key="1"
-              style={{ backgroundColor: "while" }}
-            >
-              <Table
-                rowKey="uid"
-                columns={columns}
-                dataSource={dataProductExport}
-                loading={loading}
-                pagination={false}
-              />
-            </Tabs.TabPane>
-          </Tabs>
+          <Tabs defaultActiveKey="1" items={itemTabs} />
         </div>
         <div className="export-bottom-footer">
           <div className="footer">

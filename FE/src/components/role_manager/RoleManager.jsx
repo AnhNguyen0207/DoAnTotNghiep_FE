@@ -182,7 +182,7 @@ const RoleManager = () => {
 
       <Modal
         title={mode === "new" ? "Thêm chức vụ" : "Sửa thông tin"}
-        visible={addRoleModal}
+        open={addRoleModal}
         onOk={addNewRole}
         onCancel={handleCancel}
         footer={[

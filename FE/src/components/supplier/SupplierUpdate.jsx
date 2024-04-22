@@ -1,21 +1,25 @@
 import { Button, Col, Form, Input, Modal, Row, Select } from "antd";
 import { updateSupplier } from "../../api/api";
 import ToastCustom from "../../constant/Toast";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const SupplierUpdate = ({ supplier, isVisible, setIsVisible }) => {
   const { Option } = Select;
   const [form] = Form.useForm();
-  form.setFieldsValue({
-    id: supplier.id,
-    name: supplier.name,
-    code: supplier.code,
-    phone: supplier.phone,
-    email: supplier.email,
-    accountId: supplier.accountId,
-    address: supplier.address,
-    statusTransaction: supplier.statusTransaction + "",
-  });
+  const [visible, setVisible] = useState(isVisible);
+  useEffect(() => {
+    form.setFieldsValue({
+      id: supplier.id,
+      name: supplier.name,
+      code: supplier.code,
+      phone: supplier.phone,
+      email: supplier.email,
+      accountId: supplier.accountId,
+      address: supplier.address,
+      statusTransaction: supplier.statusTransaction + "",
+    });
+  }, [visible, supplier, form]);
+  
   const onFormSubmit = (supplierForm) => {
     supplierForm.accountId = Number(1);
     supplierForm.id = supplier.id;
@@ -36,7 +40,7 @@ const SupplierUpdate = ({ supplier, isVisible, setIsVisible }) => {
         }).then();
       });
   };
-  const [visible, setVisible] = useState(isVisible);
+ 
 
   const handleCancel = () => {
     setVisible(false);
@@ -48,7 +52,7 @@ const SupplierUpdate = ({ supplier, isVisible, setIsVisible }) => {
     <>
       <Modal
         title="Sửa nhà cung cấp"
-        visible={visible}
+        open={visible}
         // confirmLoading={confirmLoading}
         onCancel={handleCancel}
         width={700}

@@ -520,7 +520,7 @@ const Statistics = () => {
         title="Lựa chọn thống kê"
         placement={"right"}
         onClose={closeFilter}
-        visible={isOpenFilter}
+        open={isOpenFilter}
         width={"35%"}
       >
         <Antd.Form onFinish={onSubmitFilter}>

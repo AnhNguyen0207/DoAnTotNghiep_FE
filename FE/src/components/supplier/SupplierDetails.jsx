@@ -44,7 +44,7 @@ const SupplierDetails = () => {
 
   const handleMenuClick = (e) => {
     if (e.key === "1") {
-      onDelete([id])
+      onDelete([id]);
     }
   };
 
@@ -93,6 +93,26 @@ const SupplierDetails = () => {
     />
   );
 
+  const itemTabs = [
+    {
+      key: "1",
+      label: "Lịch sử nhập hàng",
+      children: (
+        <>
+          <Table
+            dataSource={importInvoiceBySupplier}
+            columns={ImportInvoiceColumnBySupplier.filter(
+              (col) => col.dataIndex !== "isReturn"
+            )}
+            rowKey="code"
+            pagination={{ defaultPageSize: 10 }}
+            // rowSelection={rowSelection}
+          />
+        </>
+      ),
+    },
+  ];
+
   return (
     <div className="p-5">
       {supplier && (
@@ -121,10 +141,12 @@ const SupplierDetails = () => {
                       textAlign: "center",
                     }}
                   >
-                    <Space>
-                      Thao tác khác
-                      <DownOutlined />
-                    </Space>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        Thao tác khác
+                        <DownOutlined />
+                      </Space>
+                    </a>
                   </div>
                 </Dropdown>
               </div>
@@ -236,21 +258,7 @@ const SupplierDetails = () => {
           )}
         </div>
       )}
-      {
-        <Tabs defaultActiveKey="1">
-          <Tabs.TabPane tab="Lịch sử nhập hàng" key="1">
-            <Table
-              dataSource={importInvoiceBySupplier}
-              columns={ImportInvoiceColumnBySupplier.filter(
-                (col) => col.dataIndex !== "isReturn"
-              )}
-              rowKey="code"
-              pagination={{ defaultPageSize: 10 }}
-              // rowSelection={rowSelection}
-            />
-          </Tabs.TabPane>
-        </Tabs>
-      }
+      {<Tabs defaultActiveKey="1" items={itemTabs} />}
     </div>
   );
 };

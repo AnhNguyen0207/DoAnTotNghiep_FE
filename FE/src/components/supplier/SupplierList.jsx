@@ -23,10 +23,7 @@ import useTitle from "../../constant/useTitle";
 
 const SupplierList = () => {
   const [data, setData] = useState([{}]);
-
   const [reload, setReload] = useState(false);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoading, setIsLoading] = useState(true);
   useTitle("", "nhà cung cấp");
 

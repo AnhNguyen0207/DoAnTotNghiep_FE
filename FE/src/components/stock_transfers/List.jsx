@@ -458,7 +458,7 @@ export const ListExport = () => {
                         {colSettingModal && (
                             <Modal
                                 title="Điều chỉnh cột hiển thị"
-                                visible={colSettingModal}
+                                open={colSettingModal}
                                 onCancel={() => setColSettingModal(false)}
                                 footer={null}
                             >

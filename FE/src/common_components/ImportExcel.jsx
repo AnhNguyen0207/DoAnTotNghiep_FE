@@ -85,7 +85,7 @@ const ImportExcel = ({ reload }) => {
 
       <Modal
         title="Nhập dữ liệu nhà cung cấp"
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
         footer={[

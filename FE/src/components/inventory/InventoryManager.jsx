@@ -504,7 +504,7 @@ const InventoryManager = () => {
         </Col>
       </Row>
       <Modal
-        visible={minQuantityModal}
+        open={minQuantityModal}
         destroyOnClose
         onCancel={() => setMinQuantityModal(false)}
         closeIcon={null}

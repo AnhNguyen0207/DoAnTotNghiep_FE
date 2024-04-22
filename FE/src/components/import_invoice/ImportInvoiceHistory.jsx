@@ -24,7 +24,7 @@ const ImportInvoiceHistory = ({ data, reload }) => {
         <Modal
           title="Lịch sử thao tác đơn nhập hàng"
           centered
-          visible={visible}
+          open={visible}
           onOk={() => setVisible(false)}
           onCancel={() => setVisible(false)}
           width={1000}

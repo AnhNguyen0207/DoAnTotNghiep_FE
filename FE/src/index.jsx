@@ -2,7 +2,6 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import reportWebVitals from "./reportWebVitals";
 import "antd/dist/antd.css";
 import "./styles/index.css";
 import { BrowserRouter } from "react-router-dom";
@@ -21,5 +20,3 @@ root.render(
     </QueryClientProvider>
   </Provider>
 );
-
-reportWebVitals();

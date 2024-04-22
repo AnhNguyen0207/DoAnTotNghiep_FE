@@ -598,7 +598,7 @@ const Create = () => {
                     <Modal
                       title="Chọn sản phẩm"
                       centered
-                      visible={modal2Visible}
+                      open={modal2Visible}
                       onCancel={() => setModal2Visible(false)}
                       footer={null}
                       width={"1000px"}

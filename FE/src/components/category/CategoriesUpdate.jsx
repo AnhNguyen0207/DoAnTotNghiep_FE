@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Form, Input, Space } from "antd";
 import ToastCustom from "../../constant/Toast";
 import { updateCategory } from "../../api/apiCategory";
@@ -9,6 +9,16 @@ export default function CategoryUpdate({ status, categoryProp }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [formUpdate] = Form.useForm();
 
+  useEffect(() => {
+    if (isModalVisible) {
+      formUpdate.setFieldsValue({
+        id: categoryProp.id,
+        name: categoryProp.name,
+        description: categoryProp.description,
+      });
+    }
+  }, [isModalVisible, categoryProp, formUpdate]);
+
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -18,11 +28,6 @@ export default function CategoryUpdate({ status, categoryProp }) {
     setIsModalVisible(false);
   };
 
-  formUpdate.setFieldsValue({
-    id: categoryProp.id,
-    name: categoryProp.name,
-    description: categoryProp.description,
-  });
 
   const layout = {
     labelCol: { span: 5 },
@@ -58,7 +63,7 @@ export default function CategoryUpdate({ status, categoryProp }) {
 
       <Modal
         title="Sửa Danh Mục"
-        visible={isModalVisible}
+        open={isModalVisible}
         footer={null}
         onCancel={handleCancel}
       >

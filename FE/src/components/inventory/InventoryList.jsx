@@ -336,7 +336,7 @@ const InventoryList = () => {
       />
       <Modal
         width={750}
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
         destroyOnClose

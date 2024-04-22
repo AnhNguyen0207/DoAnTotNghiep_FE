@@ -12,7 +12,6 @@ import SelectCategory from "./SelectCategory";
 import SelectOption from "./SelectOption";
 import ImageUpload from "./ImageUpload";
 import useTitle from "../../constant/useTitle";
-import { useGridRegisterStrategyProcessor } from "@mui/x-data-grid/hooks/core/strategyProcessing";
 
 function AddProduct(props) {
   //init values

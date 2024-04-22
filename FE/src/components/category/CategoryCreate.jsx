@@ -57,7 +57,7 @@ export default function CategoryCreate({ status }) {
       </div>
       <Modal
         title="Thêm mới Danh Mục"
-        visible={isModalVisible}
+        open={isModalVisible}
         footer={null}
         onCancel={handleCancel}
       >

@@ -173,7 +173,7 @@ function Employee() {
       />
       <Modal
         title={"Thêm nhân viên"}
-        visible={isModalVisible}
+        open={isModalVisible}
         // onOk={handleOk}
         onCancel={() => {
           setIsModalVisible(false);

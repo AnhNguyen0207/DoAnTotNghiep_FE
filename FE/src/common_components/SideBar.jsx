@@ -78,6 +78,7 @@ const SideBar = () => {
           onClick={(e) => {
             if (e.key.includes("login")) {
               localStorage.removeItem("token");
+              localStorage.removeItem("account_id");
             }
             navigate(`${e.key}`, { replace: true });
           }}

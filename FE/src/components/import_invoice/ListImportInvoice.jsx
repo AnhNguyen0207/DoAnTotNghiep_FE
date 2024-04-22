@@ -49,16 +49,99 @@ const ListImportInvoice = () => {
     document.title = "Đơn nhập hàng";
   }, []);
 
-  const OperationsSlot = {
-    right: (
-      <Input
-        onChange={(e) => handleInputOnchange(e)}
-        style={{ padding: "8px", marginTop: 10 }}
-        className="tabs-extra-demo-button"
-        placeholder="Tìm kiếm theo mã đơn hàng, mã nhà cung cấp, tên kho"
-      />
-    ),
-  };
+  const OperationsSlot = (
+    <Input
+      onChange={(e) => handleInputOnchange(e)}
+      style={{ padding: "8px", marginTop: 10 }}
+      className="tabs-extra-demo-button"
+      placeholder="Tìm kiếm theo mã đơn hàng, mã nhà cung cấp, tên kho"
+    />
+  );
+
+  const items = [
+    {
+      key: "1",
+      label: "Tất cả cả đơn hàng",
+      children: (
+        <>
+          {importInvoices.length > 0 && (
+            <Table
+              dataSource={importInvoices}
+              columns={ImportInvoiceColumn.filter(
+                (col) => col.dataIndex !== "isReturn"
+              )}
+              rowKey="code"
+              pagination={{ defaultPageSize: 10 }}
+              onRow={(record) => {
+                return {
+                  onClick: (event) =>
+                    navigate({ pathname: `details/${record.code}` }),
+                };
+              }}
+              loading={!isLoading}
+              // rowSelection={rowSelection}
+            />
+          )}
+        </>
+      ),
+    },
+    {
+      key: "2",
+      label: "Đang giao dịch",
+      children: (
+        <>
+          {importInvoicesIsDone.length > 0 && (
+            <Table
+              dataSource={importInvoicesIsDone}
+              columns={ImportInvoiceColumn.filter(
+                (col) => col.dataIndex !== "isReturn"
+              )}
+              rowKey="code"
+              pagination={{ defaultPageSize: 10 }}
+              onRow={(record) => {
+                return {
+                  onClick: (event) =>
+                    navigate({
+                      pathname: `/coordinator/purchase_orders/details/${record.code}`,
+                    }),
+                };
+              }}
+              loading={!isLoading}
+              // rowSelection={rowSelection}
+            />
+          )}
+        </>
+      ),
+    },
+    {
+      key: "3",
+      label: "Trả hàng",
+      children: (
+        <>
+          {importInvoicesIsReturn.length > 0 && (
+            <Table
+              dataSource={importInvoicesIsReturn}
+              columns={ImportInvoiceColumn.filter(
+                (col) => col.dataIndex !== "isReturn"
+              )}
+              rowKey="code"
+              pagination={{ defaultPageSize: 10 }}
+              onRow={(record) => {
+                return {
+                  onClick: (event) =>
+                    navigate({
+                      pathname: `/purchase_orders/details/${record.code}`,
+                    }),
+                };
+              }}
+              loading={!isLoading}
+              // rowSelection={rowSelection}
+            />
+          )}
+        </>
+      ),
+    },
+  ];
 
   return (
     <Spin spinning={spin}>
@@ -85,72 +168,9 @@ const ListImportInvoice = () => {
           style={{ display: "block" }}
           tabBarExtraContent={OperationsSlot}
           defaultActiveKey="1"
-        >
-          <Tabs.TabPane tab="Tất cả cả đơn hàng" key="1">
-            {importInvoices.length > 0 && (
-              <Table
-                dataSource={importInvoices}
-                columns={ImportInvoiceColumn.filter(
-                  (col) => col.dataIndex !== "isReturn"
-                )}
-                rowKey="code"
-                pagination={{ defaultPageSize: 10 }}
-                onRow={(record) => {
-                  return {
-                    onClick: (event) =>
-                      navigate({ pathname: `details/${record.code}` }),
-                  };
-                }}
-                loading={!isLoading}
-                // rowSelection={rowSelection}
-              />
-            )}
-          </Tabs.TabPane>
-          <Tabs.TabPane tab="Đang giao dịch" key="2">
-            {importInvoicesIsDone.length > 0 && (
-              <Table
-                dataSource={importInvoicesIsDone}
-                columns={ImportInvoiceColumn.filter(
-                  (col) => col.dataIndex !== "isReturn"
-                )}
-                rowKey="code"
-                pagination={{ defaultPageSize: 10 }}
-                onRow={(record) => {
-                  return {
-                    onClick: (event) =>
-                      navigate({
-                        pathname: `/purchase_orders/details/${record.code}`,
-                      }),
-                  };
-                }}
-                loading={!isLoading}
-                // rowSelection={rowSelection}
-              />
-            )}
-          </Tabs.TabPane>
-          <Tabs.TabPane tab="Trả hàng" key="3">
-            {importInvoicesIsReturn.length > 0 && (
-              <Table
-                dataSource={importInvoicesIsReturn}
-                columns={ImportInvoiceColumn.filter(
-                  (col) => col.dataIndex !== "isReturn"
-                )}
-                rowKey="code"
-                pagination={{ defaultPageSize: 10 }}
-                onRow={(record) => {
-                  return {
-                    onClick: (event) =>
-                      navigate({
-                        pathname: `/purchase_orders/details/${record.code}`,
-                      }),
-                  };
-                }}
-                loading={!isLoading}
-                // rowSelection={rowSelection}
-              />
-            )}
-          </Tabs.TabPane>
-        </Tabs>
+          items={items}
+          tabPosition={{ position: "bottom" }}
+        />
       </div>
     </Spin>
   );

@@ -69,8 +69,6 @@ const DetailImportInvoice = () => {
     }
   }, [invoiceStatusHistory]);
 
-  const { Step } = Steps;
-
   const updateStatusPaidPayment = () => {
     const importId = detailInvoices?.anImport.id;
     updateStatusInvoice(importId, "paidPayment", user.id).then(() => {
@@ -121,20 +119,23 @@ const DetailImportInvoice = () => {
                 );
                 if (invoiceStatusHistoryList.length === 3) {
                   return (
-                    <Steps current={currentStatus}>
-                      <Step
-                        title="Đặt hàng"
-                        description={invoiceStatusHistoryList[2].createdAt}
-                      />
-                      <Step
-                        title="Nhập kho"
-                        description={invoiceStatusHistoryList[1].createdAt}
-                      />
-                      <Step
-                        title="Hoàn thành"
-                        description={invoiceStatusHistoryList[0].createdAt}
-                      />
-                    </Steps>
+                    <Steps
+                      current={currentStatus}
+                      items={[
+                        {
+                          title: "Đặt hàng",
+                          description: invoiceStatusHistoryList[2].createdAt,
+                        },
+                        {
+                          title: "Nhập kho",
+                          description: invoiceStatusHistoryList[1].createdAt,
+                        },
+                        {
+                          title: "Hoàn thành",
+                          description: invoiceStatusHistoryList[0].createdAt,
+                        },
+                      ]}
+                    />
                   );
                 } else if (
                   invoiceStatusHistoryList.length === 2 &&
@@ -142,17 +143,22 @@ const DetailImportInvoice = () => {
                     "Tạo phiếu nhập kho"
                 ) {
                   return (
-                    <Steps current={currentStatus + 1}>
-                      <Step
-                        title="Đặt hàng"
-                        description={invoiceStatusHistoryList[1].createdAt}
-                      />
-                      <Step
-                        title="Nhập kho"
-                        description={invoiceStatusHistoryList[0].createdAt}
-                      />
-                      <Step title="Hoàn thành" />
-                    </Steps>
+                    <Steps
+                      current={currentStatus + 1}
+                      items={[
+                        {
+                          title: "Đặt hàng",
+                          description: invoiceStatusHistoryList[1].createdAt,
+                        },
+                        {
+                          title: "Nhập kho",
+                          description: invoiceStatusHistoryList[0].createdAt,
+                        },
+                        {
+                          title: "Hoàn thành",
+                        },
+                      ]}
+                    />
                   );
                 } else if (
                   invoiceStatusHistoryList.length === 2 &&
@@ -160,25 +166,39 @@ const DetailImportInvoice = () => {
                     "Thanh toán hóa đơn nhập hàng"
                 ) {
                   return (
-                    <Steps current={currentStatus}>
-                      <Step
-                        title="Đặt hàng"
-                        description={invoiceStatusHistoryList[1].createdAt}
-                      />
-                      <Step title="Nhập kho" />
-                      <Step title="Hoàn thành" />
-                    </Steps>
+                    <Steps
+                      current={currentStatus}
+                      items={[
+                        {
+                          title: "Đặt hàng",
+                          description: invoiceStatusHistoryList[1].createdAt,
+                        },
+                        {
+                          title: "Nhập kho",
+                        },
+                        {
+                          title: "Hoàn thành",
+                        },
+                      ]}
+                    />
                   );
                 } else if (invoiceStatusHistoryList.length === 1) {
                   return (
-                    <Steps current={currentStatus}>
-                      <Step
-                        title="Đặt hàng"
-                        description={invoiceStatusHistoryList[0].createdAt}
-                      />
-                      <Step title="Nhập kho" />
-                      <Step title="Hoàn thành" />
-                    </Steps>
+                    <Steps
+                      current={currentStatus}
+                      items={[
+                        {
+                          title: "Đặt hàng",
+                          description: invoiceStatusHistoryList[0].createdAt,
+                        },
+                        {
+                          title: "Nhập kho",
+                        },
+                        {
+                          title: "Hoàn thành",
+                        },
+                      ]}
+                    />
                   );
                 }
               })()}

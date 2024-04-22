@@ -1,5 +1,5 @@
-import {useRoutes} from "react-router-dom";
-import React from "react";
+import { useRoutes, Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
 
 import Dashboard from "./components/Dashboard";
 import Categories from "./components/category/Categories";
@@ -20,22 +20,24 @@ import ListImportInvoice from "./components/import_invoice/ListImportInvoice";
 import DetailImportInvoice from "./components/import_invoice/DetailImportInvoice";
 import ProductDetails from "./components/product/ProductDetails";
 import CreateReturnImportInvoice from "./components/import_invoice/CreateReturnImportInvoice";
-import {useDispatch} from "react-redux";
-import {setUserStore} from "./store/userSlice";
+import { useDispatch } from "react-redux";
+import { setUserStore } from "./store/userSlice";
 import Statistics from "./components/statistics/Statistics";
-import {Status} from "./components/stock_transfers/Status";
+import { Status } from "./components/stock_transfers/Status";
 import Create from "./components/stock_transfers/Create";
 import InventoryManager from "./components/inventory/InventoryManager";
 import Edit from "./components/stock_transfers/Edit";
 
 const App = () => {
   const dispatch = useDispatch();
-  dispatch(
-    setUserStore({
-      accountId: localStorage.getItem("account_id") || "",
-      token: localStorage.getItem("token") || ""
-    })
-  );
+  useEffect(() => {
+    dispatch(
+      setUserStore({
+        accountId: localStorage.getItem("account_id") || "",
+        token: localStorage.getItem("token") || "",
+      })
+    );
+  }, [dispatch]);
   const router = useRoutes([
     {
       path: "/login",
@@ -46,6 +48,10 @@ const App = () => {
       element: <Dashboard />,
 
       children: [
+        {
+          path: "/",
+          element: <Navigate to="/home" />,
+        },
         {
           path: "/home",
           element: <HomePage />,

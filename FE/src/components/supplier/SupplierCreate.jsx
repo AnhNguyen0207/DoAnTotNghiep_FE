@@ -13,7 +13,7 @@ const SupplierCreate = ({ reload }) => {
   const [accountId, setAccountId] = useState();
   const [accounts, setAccounts] = useState([]);
 
-  const [form] = Form.useForm();
+  const [formCreate] = Form.useForm();
   const onFormSubmit = (supplier) => {
     supplier.accountId = accountId;
     createSupplier(supplier)
@@ -23,7 +23,7 @@ const SupplierCreate = ({ reload }) => {
           title: "Thêm nhà cung cấp thành công",
         }).then();
         setVisible(false);
-        form.resetFields();
+        formCreate.resetFields();
         reload();
         handleKeyChange();
       })
@@ -45,7 +45,7 @@ const SupplierCreate = ({ reload }) => {
 
   const handleCancel = () => {
     setVisible(false);
-    form.resetFields();
+    formCreate.resetFields();
     handleKeyChange();
   };
 
@@ -56,7 +56,7 @@ const SupplierCreate = ({ reload }) => {
     setKeyChange((current) => current + 1);
   };
   useEffect(() => {
-    form.setFieldsValue({
+    formCreate.setFieldsValue({
       address: fullAddress,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,14 +87,14 @@ const SupplierCreate = ({ reload }) => {
       {visible && (
         <Modal
           title="Thêm mới nhà cung cấp"
-          visible={visible}
+          open={visible}
           // confirmLoading={confirmLoading}
           onCancel={handleCancel}
           width={700}
           footer={[]}
         >
           <div style={{ background: "white", padding: 24 }}>
-            <Form form={form} onFinish={onFormSubmit} layout="vertical">
+            <Form form={formCreate} onFinish={onFormSubmit} layout="vertical">
               <Form.Item
                 label="Tên nhà cung cấp"
                 name="name"

@@ -77,7 +77,7 @@ const InventoryByQuantity = (inventoryId, status) => {
       <Modal
         footer={null}
         width={750}
-        visible={isModalOpen}
+        open={isModalOpen}
         destroyOnClose
         title="Danh sách sản phẩm sắp hết hàng"
         onOk={handleOk}
