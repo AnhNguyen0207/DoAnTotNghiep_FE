@@ -5,10 +5,10 @@ import React, { useEffect, useState } from "react";
 
 const SupplierUpdate = ({ supplier, isVisible, setIsVisible }) => {
   const { Option } = Select;
-  const [form] = Form.useForm();
+  const [formUpdate] = Form.useForm();
   const [visible, setVisible] = useState(isVisible);
   useEffect(() => {
-    form.setFieldsValue({
+    formUpdate.setFieldsValue({
       id: supplier.id,
       name: supplier.name,
       code: supplier.code,
@@ -18,8 +18,8 @@ const SupplierUpdate = ({ supplier, isVisible, setIsVisible }) => {
       address: supplier.address,
       statusTransaction: supplier.statusTransaction + "",
     });
-  }, [visible, supplier, form]);
-  
+  }, [visible, supplier, formUpdate]);
+
   const onFormSubmit = (supplierForm) => {
     supplierForm.accountId = Number(1);
     supplierForm.id = supplier.id;
@@ -40,12 +40,11 @@ const SupplierUpdate = ({ supplier, isVisible, setIsVisible }) => {
         }).then();
       });
   };
- 
 
   const handleCancel = () => {
     setVisible(false);
     setIsVisible();
-    form.resetFields();
+    formUpdate.resetFields();
   };
 
   return (
@@ -60,7 +59,7 @@ const SupplierUpdate = ({ supplier, isVisible, setIsVisible }) => {
         footer={[]}
       >
         <div style={{ background: "white", padding: 24 }}>
-          <Form form={form} onFinish={onFormSubmit} layout="vertical">
+          <Form form={formUpdate} onFinish={onFormSubmit} layout="vertical">
             <Row gutter={12}>
               <Col span={12}>
                 <Form.Item

@@ -81,6 +81,7 @@ const InventoryStatisticTable = (props) => {
       dataSource={data}
       columns={extendImportCol}
       bordered
+      rowKey={"id"}
     ></Table>
   );
 };

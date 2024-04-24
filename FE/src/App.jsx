@@ -70,7 +70,7 @@ const App = () => {
             { path: "", element: <Storage /> },
             { path: "stock_transfers/:id", element: <Status /> },
             { path: "stock_transfers/create", element: <Create /> },
-            { path: "stock_transfers/edit/:id", element: <Edit /> },
+            // { path: "stock_transfers/edit/:id", element: <Edit /> },
           ],
         },
         {

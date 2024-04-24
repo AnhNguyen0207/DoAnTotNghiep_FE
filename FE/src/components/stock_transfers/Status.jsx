@@ -17,8 +17,9 @@ import {
 } from "antd";
 import "../../styles/file.css";
 import moment from "moment";
+import { LeftOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { findDetailByExport } from "../../api/detailExport";
 import {
   addExportByInventory,
@@ -37,7 +38,6 @@ import PDFStockTransfer from "./PDFStockTransfer";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PrintIcon from "@mui/icons-material/Print";
 import useTitle from "../../constant/useTitle";
-import { useFormState } from "react-hook-form";
 export const Status = () => {
   const { id } = useParams();
   const [exportById, setExportById] = useState();
@@ -51,18 +51,16 @@ export const Status = () => {
   const [total, setTotal] = useState(0);
   const [loadingEdit, setLoadingEdit] = useState(false);
   const [productVariant, setProductVariant] = useState([]);
-  const [statusUpdate, setStatusUpdate] = useFormState([]);
+  const [statusUpdate, setStatusUpdate] = useState([]);
   const [statusSend, setStatusSend] = useState([]);
   const [check, setCheck] = useState([]);
 
-  useTitle("", "Tạo phiếu chuyển hàng");
+  useTitle("Chi tiết phiếu chuyển hàng", "Chi tiết phiếu chuyển hàng");
   const now = moment(new Date()).format("DD/MM/YYYY HH:mm").toString();
   const next = async () => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setIsModalOpen(true);
-    }, 500);
+    setLoading(false);
+    setIsModalOpen(true);
   };
   const user = useSelector((state) => state.user);
   const handleOk = () => {
@@ -115,7 +113,7 @@ export const Status = () => {
       setIsModalOpen(false);
       setLoading(false);
       setCurrent(current + 1);
-    }, 1000);
+    }, 100);
   };
   const handleOkCancel = async () => {
     if (status?.status === 0) {
@@ -158,7 +156,7 @@ export const Status = () => {
     setTimeout(() => {
       setLoadingEdit(false);
       navigate(`/coordinator/storage/stock_transfers/edit/${id}`);
-    }, 500);
+    }, 200);
   };
   const [accountCreate, setAccountCreate] = useState();
   const [accountSend, setAccountSend] = useState();
@@ -269,7 +267,7 @@ export const Status = () => {
   useEffect(() => {
     setTimeout(() => {
       setSpin(false);
-    }, 1000);
+    }, 200);
   }, []);
 
   const itemTabs = [
@@ -280,7 +278,7 @@ export const Status = () => {
       children: (
         <>
           <Table
-            rowKey="uid"
+            rowKey={"id"}
             columns={columns}
             dataSource={dataProductExport}
             loading={loading}
@@ -350,121 +348,12 @@ export const Status = () => {
   return (
     <Spin spinning={spin}>
       <div className="p-5">
-        <div className="site-page-header-ghost-wrapper">
-          <PageHeader
-            ghost={false}
-            onBack={() => window.history.back()}
-            title="Quay lại tạo phiếu chuyển hàng"
-            subTitle=""
-            extra={[
-              <Button
-                key="3"
-                onClick={handleError}
-                danger
-                hidden={
-                  status?.status === 2 || status?.statusCancel ? true : false
-                }
-                className="rounded-md"
-              >
-                Huỷ
-              </Button>,
+        <h2 style={{ fontSize: "15px", paddingBottom: "20px" }}>
+          <Link to="/coordinator/storage">
+            <LeftOutlined /> Danh sách phiếu chuyển
+          </Link>
+        </h2>
 
-              <Button
-                key="2"
-                type="primary"
-                ghost
-                hidden={
-                  status?.status === 2 || status?.statusCancel ? true : false
-                }
-                onClick={handleEdit}
-                loading={loadingEdit}
-                className="rounded-md"
-              >
-                Sửa
-              </Button>,
-              <Button
-                key="1"
-                type="primary"
-                onClick={next}
-                hidden={
-                  status?.status === 2 || status?.statusCancel ? true : false
-                }
-                loading={loading}
-                className="rounded-md"
-              >
-                {status?.status === 1 ? "Nhận hàng" : "Chuyển hàng"}
-              </Button>,
-            ]}
-          />
-          <Modal
-            title={
-              status?.status === 0 ? (
-                <h4 style={{ fontWeight: 700 }}>Xuất phiếu chuyển hàng</h4>
-              ) : (
-                <h4 style={{ fontWeight: 700 }}>Nhận hàng chuyển</h4>
-              )
-            }
-            // open={isModalOpen}
-            open={isModalOpen}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            okText={"Xác nhận"}
-            cancelText={"Thoát"}
-            confirmLoading={loading}
-          >
-            {status?.status === 0 ? (
-              <div>
-                {" "}
-                <div>
-                  Thao tác này sẽ thay đổi thông số kho các sản phẩm trong phiếu
-                  chuyển hàng:
-                </div>
-                <div>
-                  <li>
-                    {" "}
-                    - Giảm tồn kho của chi nhánh{" "}
-                    <span style={{ fontWeight: 700 }}>
-                      {" "}
-                      {exportById?.exportInventory?.name}{" "}
-                    </span>
-                  </li>
-                  <li>
-                    {" "}
-                    - Tăng số lượng hàng đang về của chi nhánh{" "}
-                    <span style={{ fontWeight: 700 }}>
-                      {exportById?.receiveInventory?.name}
-                    </span>
-                  </li>
-                </div>
-                Bạn muốn xuất chuyển hàng phiếu chuyển này?{" "}
-              </div>
-            ) : (
-              <div>
-                Thao tác nhận hàng này sẽ tăng số lượng tồn kho các sản phẩm
-                trong phiếu chuyển hàng của chi nhánh{" "}
-                <span style={{ fontWeight: 700 }}>
-                  {exportById?.receiveInventory?.name}
-                </span>
-                . Thao tác này không thể khôi phục.
-              </div>
-            )}
-          </Modal>
-          <Modal
-            title={"Bạn chắc chắn muốn hủy phiếu chuyển hàng này?"}
-            // open={isModalOpen}
-            open={isModalCancel}
-            onOk={handleOkCancel}
-            onCancel={handleCancel}
-            okText={"Xác nhận"}
-            cancelText={"Thoát"}
-            confirmLoading={loading}
-          >
-            <div>
-              Thao tác này sẽ hủy phiếu chuyển hàng {detailExport[0]?.code}.
-              Thao tác này không thể khôi phục.
-            </div>
-          </Modal>
-        </div>
         <div id="top-head-status" className="flex justify-between">
           <div className="flex flex-col gap-2">
             <div>
@@ -554,7 +443,7 @@ export const Status = () => {
             )}
           </div>
 
-          <div>
+          <div style={{ width: "32%" }}>
             <Steps
               current={status?.status}
               size="small"
@@ -569,6 +458,12 @@ export const Status = () => {
             <Card
               className="col-span-4"
               title="Thông tin phiếu"
+              style={{
+                backgroundColor: "#fff",
+                borderRadius: "3px",
+                boxShadow:
+                  "0 0 0 1px rgb(63 63 68 / 10%), 0 1px 1px 0 rgb(63 63 68 / 10%)",
+              }}
               extra={
                 <a href="#" onClick={showModal} className="infor" type="Button">
                   Xem lịch sử phiếu chuyển hàng
@@ -825,7 +720,16 @@ export const Status = () => {
                 ""
               )}
             </Card>
-            <Card title="Thông tin bổ sung" className="col-span-2">
+            <Card
+              title="Thông tin bổ sung"
+              className="col-span-2"
+              style={{
+                backgroundColor: "#fff",
+                borderRadius: "3px",
+                boxShadow:
+                  "0 0 0 1px rgb(63 63 68 / 10%), 0 1px 1px 0 rgb(63 63 68 / 10%)",
+              }}
+            >
               <h4>Ghi chú</h4>
               {status?.note === undefined ? (
                 <p>Chưa có ghi chú</p>
@@ -850,14 +754,26 @@ export const Status = () => {
 
         <div
           style={{
-            backgroundColor: "white",
+            backgroundColor: "#fff",
+            borderRadius: "3px",
+            boxShadow:
+              "0 0 0 1px rgb(63 63 68 / 10%), 0 1px 1px 0 rgb(63 63 68 / 10%)",
             padding: "20px",
             marginTop: "20px",
           }}
         >
           <Tabs defaultActiveKey="1" items={itemTabs} />
         </div>
-        <div className="export-bottom-footer">
+
+        <div
+          className="export-bottom-footer"
+          style={{
+            backgroundColor: "#fff",
+            borderRadius: "3px",
+            boxShadow:
+              "0 0 0 1px rgb(63 63 68 / 10%), 0 1px 1px 0 rgb(63 63 68 / 10%)",
+          }}
+        >
           <div className="footer">
             <li className="">
               <div className="">
@@ -871,7 +787,113 @@ export const Status = () => {
             </li>
           </div>
         </div>
-        <div />
+
+        <div
+          style={{
+            paddingTop: "20px",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <Button
+            key="3"
+            onClick={handleError}
+            danger
+            hidden={status?.status === 2 || status?.statusCancel ? true : false}
+            className="rounded-md"
+          >
+            Huỷ
+          </Button>
+          {/* <Button
+            key="2"
+            type="primary"
+            ghost
+            hidden={status?.status === 2 || status?.statusCancel ? true : false}
+            onClick={handleEdit}
+            loading={loadingEdit}
+            className="rounded-md"
+          >
+            Sửa
+          </Button> */}
+          <Button
+            key="1"
+            type="primary"
+            onClick={next}
+            hidden={status?.status === 2 || status?.statusCancel ? true : false}
+            loading={loading}
+            className="rounded-md"
+          >
+            {status?.status === 1 ? "Nhận hàng" : "Chuyển hàng"}
+          </Button>
+          <Modal
+            title={
+              status?.status === 0 ? (
+                <h4 style={{ fontWeight: 700 }}>Xuất phiếu chuyển hàng</h4>
+              ) : (
+                <h4 style={{ fontWeight: 700 }}>Nhận hàng chuyển</h4>
+              )
+            }
+            // open={isModalOpen}
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            okText={"Xác nhận"}
+            cancelText={"Thoát"}
+            confirmLoading={loading}
+          >
+            {status?.status === 0 ? (
+              <div>
+                {" "}
+                <div>
+                  Thao tác này sẽ thay đổi thông số kho các sản phẩm trong phiếu
+                  chuyển hàng:
+                </div>
+                <div>
+                  <li>
+                    {" "}
+                    - Giảm tồn kho của chi nhánh{" "}
+                    <span style={{ fontWeight: 700 }}>
+                      {" "}
+                      {exportById?.exportInventory?.name}{" "}
+                    </span>
+                  </li>
+                  <li>
+                    {" "}
+                    - Tăng số lượng hàng đang về của chi nhánh{" "}
+                    <span style={{ fontWeight: 700 }}>
+                      {exportById?.receiveInventory?.name}
+                    </span>
+                  </li>
+                </div>
+                Bạn muốn xuất chuyển hàng phiếu chuyển này?{" "}
+              </div>
+            ) : (
+              <div>
+                Thao tác nhận hàng này sẽ tăng số lượng tồn kho các sản phẩm
+                trong phiếu chuyển hàng của chi nhánh{" "}
+                <span style={{ fontWeight: 700 }}>
+                  {exportById?.receiveInventory?.name}
+                </span>
+                . Thao tác này không thể khôi phục.
+              </div>
+            )}
+          </Modal>
+          <Modal
+            title={"Bạn chắc chắn muốn hủy phiếu chuyển hàng này?"}
+            // open={isModalOpen}
+            open={isModalCancel}
+            onOk={handleOkCancel}
+            onCancel={handleCancel}
+            okText={"Xác nhận"}
+            cancelText={"Thoát"}
+            confirmLoading={loading}
+          >
+            <div>
+              Thao tác này sẽ hủy phiếu chuyển hàng {detailExport[0]?.code}.
+              Thao tác này không thể khôi phục.
+            </div>
+          </Modal>
+        </div>
       </div>
     </Spin>
   );

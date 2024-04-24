@@ -21,7 +21,7 @@ import { deleteSupplier } from "../../api/api";
 import Swal from "sweetalert2";
 
 const SupplierDetails = () => {
-  useTitle("Chi tiết nhà cung cấp", "Nhà cung cấp");
+  useTitle("Chi tiết nhà cung cấp", "Chi tiết nhà cung cấp");
   const navigate = useNavigate();
   const { id } = useParams();
   const [supplier, setSupplier] = useState({});
@@ -104,8 +104,16 @@ const SupplierDetails = () => {
             columns={ImportInvoiceColumnBySupplier.filter(
               (col) => col.dataIndex !== "isReturn"
             )}
-            rowKey="code"
+            rowKey={"code"}
             pagination={{ defaultPageSize: 10 }}
+            onRow={(record) => {
+              return {
+                onClick: (event) =>
+                  navigate({
+                    pathname: `/coordinator/purchase_orders/details/${record.code}`,
+                  }),
+              };
+            }}
             // rowSelection={rowSelection}
           />
         </>
@@ -117,7 +125,7 @@ const SupplierDetails = () => {
     <div className="p-5">
       {supplier && (
         <div>
-          <h2 style={{ fontSize: "15px", marginBottom: 20 }}>
+          <h2 style={{ fontSize: "15px", paddingBottom: 20 }}>
             <Link to="/stocker/supplier/">
               <LeftOutlined /> Danh sách nhà cung cấp
             </Link>

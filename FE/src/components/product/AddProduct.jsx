@@ -15,7 +15,7 @@ import useTitle from "../../constant/useTitle";
 
 function AddProduct(props) {
   //init values
-  useTitle("Thêm mới sản phẩm");
+  useTitle("Thêm sản phẩm", "Thêm sản phẩm");
   const initOptions = [];
   const valuesForName = [];
   const variantsAll = [];
@@ -165,8 +165,6 @@ function AddProduct(props) {
         setCategories(res.data.reverse());
       })
       .catch((error) => {});
-
-    document.title = "Thêm sản phẩm";
   }, []);
 
   // Component
@@ -340,7 +338,7 @@ function AddProduct(props) {
   return (
     <div className="p-5">
       <Antd.Spin spinning={open} tip={"Đang lưu..."}>
-        <h2 style={{ fontSize: "15px", marginBottom: 20 }}>
+        <h2 style={{ fontSize: "15px", paddingBottom: 20 }}>
           <Link to="/warehouse/products">
             <LeftOutlined /> Danh sách sản phẩm
           </Link>

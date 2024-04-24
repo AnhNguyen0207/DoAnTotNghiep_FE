@@ -444,18 +444,16 @@ const ProductDetails = () => {
   const View = () => {
     return (
       <div>
-        <div>
-          <h2 style={{ fontSize: "15px" }}>
-            <Link to="/warehouse/products">
-              <LeftOutlined /> Danh sách sản phẩm
-            </Link>
-            {searchParams.get("backcode")?.toString() === "statistic" ? (
+        <h2 style={{ fontSize: "15px", paddingBottom: 20 }}>
+          <Link to="/warehouse/products">
+            <LeftOutlined /> Danh sách sản phẩm
+          </Link>
+          {/* {searchParams.get("backcode")?.toString() === "statistic" ? (
               <Link to="/statistics">
                 <LeftOutlined /> Thống kê
               </Link>
-            ) : null}
-          </h2>
-        </div>
+            ) : null} */}
+        </h2>
 
         <Mui.Grid container spacing={2} sx={{ mb: 10 }}>
           <Mui.Grid item xs={8} sx={{ mb: 2 }}>
@@ -508,7 +506,7 @@ const ProductDetails = () => {
       <Antd.Modal
         width={1000}
         title="Mô tả sản phẩm"
-        visible={openDes}
+        open={openDes}
         footer={null}
         onCancel={() => {
           setOpenDes(false);
@@ -517,9 +515,8 @@ const ProductDetails = () => {
         <textarea
           style={{ width: "100%", height: "500px", padding: 10 }}
           disabled={true}
-        >
-          {productInfo?.product.description}
-        </textarea>
+          value={productInfo?.product?.description}
+        />
       </Antd.Modal>
 
       {isUpdate && productInfo?.product ? (

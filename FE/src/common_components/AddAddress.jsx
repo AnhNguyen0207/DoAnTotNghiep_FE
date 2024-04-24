@@ -83,7 +83,7 @@ const AddAddress = ({ onChange, keyChange }) => {
           >
             <Input
               onChange={(e) => setDetailAddress(e.target.value)}
-              placeholder="nhập địa chỉ nhà cung cấp"
+              placeholder="Nhập địa chỉ nhà cung cấp"
             />
           </Form.Item>
         </Col>

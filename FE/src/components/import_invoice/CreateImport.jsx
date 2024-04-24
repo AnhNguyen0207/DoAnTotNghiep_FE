@@ -26,6 +26,7 @@ import {
   FastForwardOutlined,
   LeftOutlined,
 } from "@ant-design/icons";
+import moment from "moment";
 import { default as NumberFormat } from "react-number-format";
 import { getAllActiveInventory } from "../../api/inventory";
 import ToastCustom from "../../constant/Toast";
@@ -42,7 +43,7 @@ const CreateImport = () => {
   const [supplierId, setSupplierId] = useState();
   const [inventoryId, setInventoryId] = useState(0);
   const [productVariants, setProductVariants] = useState([]);
-  const [listAllProductVariant, setListAllProductVariant] = useState ([]);
+  const [listAllProductVariant, setListAllProductVariant] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
   const [tableData, setTableData] = useState([]);
 
@@ -395,9 +396,13 @@ const CreateImport = () => {
     setDate(dateString.toString());
   };
 
+  const disabledDate = (current) => {
+    return current && current < moment().endOf('day');
+  };
+
   return (
     <div className="p-5">
-      <h2 style={{ fontSize: "15px", marginBottom: 30 }}>
+      <h2 style={{ fontSize: "15px", paddingBottom: 20 }}>
         <Link to="/coordinator/purchase_orders">
           <LeftOutlined /> Danh sách đơn hàng
         </Link>
@@ -528,7 +533,7 @@ const CreateImport = () => {
                     />
                     <br />
                     <Table
-                      rowKey="code"
+                      rowKey={"code"}
                       columns={columnsModal}
                       dataSource={productVariants}
                       pagination={false}
@@ -567,7 +572,7 @@ const CreateImport = () => {
               <div style={{ border: "1px solid #d9d9d9" }}>
                 {tableData.length > 0 ? (
                   <Table
-                    rowKey="code"
+                    rowKey={"code"}
                     columns={columns}
                     dataSource={tableData}
                     pagination={false}
@@ -599,9 +604,9 @@ const CreateImport = () => {
               <p>
                 <b>Thông tin đơn nhập hàng</b>
               </p>
-              <Form.Item label="Mã đơn nhập hàng" name="code">
+              {/* <Form.Item label="Mã đơn nhập hàng" name="code">
                 <Input />
-              </Form.Item>
+              </Form.Item> */}
               <Form.Item
                 label="Chi nhánh"
                 name="inventory"
@@ -620,7 +625,7 @@ const CreateImport = () => {
                       return (
                         <Option
                           key={inventor.id}
-                          style={{ width: 350 }}
+                          style={{ width: 485 }}
                           value={inventor.id}
                         >
                           {" "}
@@ -651,6 +656,7 @@ const CreateImport = () => {
                   style={{ width: "100%" }}
                   onChange={onChangeDate}
                   placeholder={"Chọn ngày giao"}
+                  disabledDate={disabledDate}
                 />
               </Form.Item>
             </div>

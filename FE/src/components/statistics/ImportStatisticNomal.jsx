@@ -91,6 +91,7 @@ const ImportStatisticNomal = (props) => {
       dataSource={imports}
       columns={normalImportCol}
       bordered
+      rowKey={"id"}
     ></Table>
   );
 };

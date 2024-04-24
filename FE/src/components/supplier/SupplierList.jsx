@@ -25,7 +25,7 @@ const SupplierList = () => {
   const [data, setData] = useState([{}]);
   const [reload, setReload] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  useTitle("", "nhà cung cấp");
+  useTitle("Nhà cung cấp", "Nhà cung cấp");
 
   useEffect(() => {
     // setTimeout(() => {
@@ -139,10 +139,9 @@ const SupplierList = () => {
 
   return (
     <div className="p-5">
-      <h1 style={{ fontSize: "30px", marginRight: 10 }}>Nhà cung cấp </h1>
       <div
         style={{
-          marginBottom: 16,
+          paddingBottom: 20,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -172,24 +171,23 @@ const SupplierList = () => {
           <SupplierCreate reload={() => setReload(!reload)} />
         </div>
       </div>
-      {
-        <Table
-          dataSource={data}
-          columns={SupplierColumn}
-          rowKey="id"
-          bordered
-          pagination={{ defaultPageSize: 5 }}
-          onRow={(record) => {
-            return {
-              onClick: (event) =>
-                navigate({
-                  pathname: `/stocker/supplier/details/${record.id}`,
-                }),
-            };
-          }}
-          rowSelection={rowSelection}
-        />
-      }
+
+      <Table
+        dataSource={data}
+        columns={SupplierColumn}
+        rowKey={"id"}
+        bordered
+        pagination={{ defaultPageSize: 5 }}
+        onRow={(record) => {
+          return {
+            onClick: (event) =>
+              navigate({
+                pathname: `/stocker/supplier/details/${record.id}`,
+              }),
+          };
+        }}
+        rowSelection={rowSelection}
+      />
     </div>
   );
 };

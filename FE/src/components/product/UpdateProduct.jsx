@@ -264,17 +264,7 @@ const UpdateProduct = (props) => {
         initialValues={productInfo.product}
         onValuesChange={(change, value) => {}}
       >
-        <div>
-          <h2
-            style={{ margin: 20 }}
-            onClick={() => {
-              setIsUpdate(false);
-            }}
-          >
-            <LeftOutlined /> Quay lại
-          </h2>
-        </div>
-        <Mui.Grid container spacing={2} sx={{ mb: 10 }}>
+        <Mui.Grid container spacing={2} sx={{ mb: 5 }}>
           <Mui.Grid item xs={8}>
             <ProductInfo />
           </Mui.Grid>

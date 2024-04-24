@@ -311,7 +311,7 @@ const InventoryManager = () => {
     <div className="p-5">
       <div
         style={{
-          marginBottom: 16,
+          paddingBottom: 20,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -325,10 +325,7 @@ const InventoryManager = () => {
         <div>
           <Space>
             {inventory?.id ? (
-              <InventoryByQuantity
-                inventoryId={inventory?.id}
-                status={status}
-              />
+              <InventoryByQuantity inventoryId={inventory?.id} />
             ) : null}
             <Button
               type="primary"

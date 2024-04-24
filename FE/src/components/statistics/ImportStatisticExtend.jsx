@@ -164,6 +164,7 @@ const ImportStatisticExtend = (props) => {
       dataSource={imports}
       columns={extendImportCol}
       bordered
+      rowKey={"id"}
     ></Table>
   );
 };

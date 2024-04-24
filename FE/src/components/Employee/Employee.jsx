@@ -160,14 +160,14 @@ function Employee() {
   };
 
   return (
-    <div className="m-5">
-      <div>
+    <div className="p-5">
+      <div style={{paddingBottom: 20}}> 
         <Button onClick={() => setIsModalVisible(true)}>Thêm nhân viên</Button>
       </div>
       <Table
         columns={columns}
         query={accountApi}
-        rowKey="id"
+        rowKey={"id"}
         rowClassName="cursor-default"
         style={{ cursor: "default" }}
       />

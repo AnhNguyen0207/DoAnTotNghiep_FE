@@ -254,7 +254,7 @@ const Search = () => {
           <Radio.Group value={"checkbox"}></Radio.Group>
 
           <Table
-            rowKey="uid"
+            rowKey={"id"}
             columns={columns}
             dataSource={data}
             style={{ width: "100%" }}

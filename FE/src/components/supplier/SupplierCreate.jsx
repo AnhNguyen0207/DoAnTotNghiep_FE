@@ -95,17 +95,16 @@ const SupplierCreate = ({ reload }) => {
         >
           <div style={{ background: "white", padding: 24 }}>
             <Form form={formCreate} onFinish={onFormSubmit} layout="vertical">
-              <Form.Item
-                label="Tên nhà cung cấp"
-                name="name"
-                rules={[{ required: true, message: "Tên không được để trống" }]}
-              >
-                <Input />
-              </Form.Item>
               <Row gutter={24}>
                 <Col span={12}>
-                  <Form.Item label="Mã nhà cung cấp " name="code">
-                    <Input placeholder="Nhập tên nhà cung cấp" />
+                  <Form.Item
+                    label="Tên nhà cung cấp"
+                    name="name"
+                    rules={[
+                      { required: true, message: "Tên không được để trống" },
+                    ]}
+                  >
+                    <Input placeholder="Nhập tên nhà cung cấp"/>
                   </Form.Item>
                 </Col>
                 <Col span={12}>
@@ -171,7 +170,7 @@ const SupplierCreate = ({ reload }) => {
               {/*-------------------*/}
 
               <Form.Item label="Địa chỉ" name="address">
-                <Input disabled placeholder="địa chỉ nhà cung cấp" />
+                <Input disabled placeholder="Địa chỉ nhà cung cấp" />
               </Form.Item>
               <Row>
                 <Col span={4}>

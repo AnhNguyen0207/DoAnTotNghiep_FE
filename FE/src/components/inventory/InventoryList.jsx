@@ -28,7 +28,7 @@ import useTitle from "../../constant/useTitle";
 
 const InventoryList = () => {
   const navigate = useNavigate();
-  useTitle("", "Kho hàng");
+  useTitle("Danh sách kho hàng", "Kho hàng");
   const tailLayout = {
     wrapperCol: { offset: 18, span: 18 },
     labelCol: { span: 100 },
@@ -303,9 +303,6 @@ const InventoryList = () => {
 
   return (
     <div className="p-5">
-      <h1 style={{ fontSize: "30px", marginRight: 10, marginBottom: 20 }}>
-        Danh sách kho{" "}
-      </h1>
       <Row justify="space-between">
         <Col>
           <FilterBox search={setSearch} />
@@ -351,7 +348,7 @@ const InventoryList = () => {
           <Form.Item name="id" style={{ display: "none" }}>
             <Input />
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             label="Mã kho"
             name="code"
             rules={[
@@ -363,7 +360,7 @@ const InventoryList = () => {
             ]}
           >
             <Input />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item
             label="Tên kho"

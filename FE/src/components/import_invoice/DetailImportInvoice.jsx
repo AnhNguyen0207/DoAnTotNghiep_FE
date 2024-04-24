@@ -8,6 +8,7 @@ import {
   updateStatusInvoice,
 } from "../../api/api";
 import { Button, Col, Row, Steps, Table, Tag } from "antd";
+import moment from "moment";
 import { LeftOutlined, ShopFilled } from "@ant-design/icons";
 import { columnsDetailImportInvoice } from "../../common_components/Datatablesource";
 import ToastCustom from "../../constant/Toast";
@@ -19,7 +20,7 @@ import { useSelector } from "react-redux";
 import useTitle from "../../constant/useTitle";
 
 const DetailImportInvoice = () => {
-  useTitle("", "Chi tiết đơn nhập hàng");
+  useTitle("Chi tiết đơn nhập hàng", "Chi tiết đơn nhập hàng");
 
   const { code } = useParams();
 
@@ -92,11 +93,12 @@ const DetailImportInvoice = () => {
 
   return (
     <div className="p-5">
-      <h2 style={{ fontSize: "15px" }}>
+      <h2 style={{ fontSize: "15px", paddingBottom: "20px" }}>
         <Link to="/coordinator/purchase_orders">
           <LeftOutlined /> Danh sách đơn hàng
         </Link>
       </h2>
+
       {detailInvoices && (
         <div>
           <div
@@ -112,7 +114,7 @@ const DetailImportInvoice = () => {
               </h1>
               <span style={{ marginTop: 10 }}>{createDate}</span>
             </div>
-            <div style={{ width: "45%" }}>
+            <div style={{ width: "32%" }}>
               {(() => {
                 const invoiceStatusHistoryList = invoiceStatusHistory.filter(
                   (obj) => obj.statusName !== "Tạo phiếu trả hàng"
@@ -121,18 +123,27 @@ const DetailImportInvoice = () => {
                   return (
                     <Steps
                       current={currentStatus}
+                      size="small"
+                      labelPlacement="vertical"
                       items={[
                         {
                           title: "Đặt hàng",
-                          description: invoiceStatusHistoryList[2].createdAt,
+                          description: moment(
+                            invoiceStatusHistoryList[2].createdAt
+                          ).format("DD/MM/YYYY HH:mm"),
                         },
                         {
                           title: "Nhập kho",
-                          description: invoiceStatusHistoryList[1].createdAt,
+                          description: moment(
+                            invoiceStatusHistoryList[1].createdAt
+                          ).format("DD/MM/YYYY HH:mm"),
                         },
                         {
                           title: "Hoàn thành",
-                          description: invoiceStatusHistoryList[0].createdAt,
+                          description: moment(
+                            invoiceStatusHistoryList[0].createdAt
+                          ).format("DD/MM/YYYY HH:mm"),
+                          status: "finish",
                         },
                       ]}
                     />
@@ -145,14 +156,21 @@ const DetailImportInvoice = () => {
                   return (
                     <Steps
                       current={currentStatus + 1}
+                      size="small"
+                      labelPlacement="vertical"
                       items={[
                         {
                           title: "Đặt hàng",
-                          description: invoiceStatusHistoryList[1].createdAt,
+                          description: moment(
+                            invoiceStatusHistoryList[1].createdAt
+                          ).format("DD/MM/YYYY HH:mm"),
                         },
                         {
                           title: "Nhập kho",
-                          description: invoiceStatusHistoryList[0].createdAt,
+                          description: moment(
+                            invoiceStatusHistoryList[0].createdAt
+                          ).format("DD/MM/YYYY HH:mm"),
+                          status: "finish",
                         },
                         {
                           title: "Hoàn thành",
@@ -168,10 +186,15 @@ const DetailImportInvoice = () => {
                   return (
                     <Steps
                       current={currentStatus}
+                      size="small"
+                      labelPlacement="vertical"
                       items={[
                         {
                           title: "Đặt hàng",
-                          description: invoiceStatusHistoryList[1].createdAt,
+                          description: moment(
+                            invoiceStatusHistoryList[1].createdAt
+                          ).format("DD/MM/YYYY HH:mm"),
+                          status: "finish",
                         },
                         {
                           title: "Nhập kho",
@@ -186,10 +209,15 @@ const DetailImportInvoice = () => {
                   return (
                     <Steps
                       current={currentStatus}
+                      size="small"
+                      labelPlacement="vertical"
                       items={[
                         {
                           title: "Đặt hàng",
-                          description: invoiceStatusHistoryList[0].createdAt,
+                          description: moment(
+                            invoiceStatusHistoryList[0].createdAt
+                          ).format("DD/MM/YYYY HH:mm"),
+                          status: "finish",
                         },
                         {
                           title: "Nhập kho",
@@ -294,36 +322,14 @@ const DetailImportInvoice = () => {
                   </div>
                   <hr />
                   <div style={{ padding: 20 }}>
-                    {detailInvoices.anImport.detailsImports.length && (
-                      <Table
-                        rowKey="id"
-                        columns={columnsDetailImportInvoice}
-                        dataSource={detailInvoices.anImport.detailsImports}
-                        pagination={false}
-                      />
-                    )}
+                    <Table
+                      rowKey={"id"}
+                      columns={columnsDetailImportInvoice}
+                      dataSource={detailInvoices.anImport.detailsImports}
+                      pagination={{ pageSize: 5 }}
+                    />
                   </div>
                 </div>
-
-                <PaymentImport
-                  updateStatusPaidPayment={updateStatusPaidPayment}
-                  total={detailInvoices?.anImport.totalPrice}
-                  isPaid={detailInvoices?.anImport.isPaid}
-                />
-
-                <ImportWarehouse
-                  updateStatusImportWarehouse={updateStatusImportWarehouse}
-                  invoice={detailInvoices}
-                  createDate={createDate}
-                  importDate={importDate}
-                  fullName={fullName}
-                  phoneNumber={phoneNumber}
-                />
-
-                <ReturnInvoiceImport
-                  returnInvoice={returnInvoice}
-                  invoice={detailInvoices}
-                />
               </Col>
               <Col span={8}>
                 <div className="block" style={{ padding: 0 }}>
@@ -360,39 +366,35 @@ const DetailImportInvoice = () => {
                       </Col>
                     </Row>
                   </div>
-                </div>
-                <div className="block" style={{ padding: 0 }}>
-                  <div style={{ padding: 20 }}>
+                  <div style={{ padding: "10px 20px" }}>
                     <ImportInvoiceHistory
                       reload={reload}
                       data={invoiceStatusHistory}
                     />
                   </div>
                 </div>
+
+                <PaymentImport
+                  updateStatusPaidPayment={updateStatusPaidPayment}
+                  total={detailInvoices?.anImport.totalPrice}
+                  isPaid={detailInvoices?.anImport.isPaid}
+                />
+
+                <ImportWarehouse
+                  updateStatusImportWarehouse={updateStatusImportWarehouse}
+                  invoice={detailInvoices}
+                  createDate={createDate}
+                  importDate={importDate}
+                  fullName={fullName}
+                  phoneNumber={phoneNumber}
+                />
+
+                <ReturnInvoiceImport
+                  returnInvoice={returnInvoice}
+                  invoice={detailInvoices}
+                />
               </Col>
             </Row>
-            {!detailInvoices.anImport.isDone && (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  borderTop: "1px solid #dfe4e8",
-                  paddingTop: "15px",
-                  marginTop: " 50px",
-                }}
-              >
-                {!detailInvoices.anImport.isPaid && (
-                  <Button onClick={updateStatusPaidPayment} type="default">
-                    Xác nhận thanh toán
-                  </Button>
-                )}
-                {!detailInvoices.anImport.isImport && (
-                  <Button onClick={updateStatusImportWarehouse} type="primary">
-                    Xác nhận nhập kho
-                  </Button>
-                )}
-              </div>
-            )}
           </div>
         </div>
       )}

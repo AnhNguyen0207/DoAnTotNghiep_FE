@@ -22,6 +22,7 @@ import { Delete, PreviewOutlined } from "@mui/icons-material";
 import useTitle from "../../constant/useTitle";
 
 const ListProduct = () => {
+  useTitle("Danh sách sản phẩm", "Danh sách sản phẩm");
   var keyWord = "";
   const { searchKey } = useParams();
   const initFilter = {
@@ -32,7 +33,6 @@ const ListProduct = () => {
     page: 1,
     size: 7,
   };
-  useTitle("", "Sản phẩm");
   const ProductCol = [
     {
       title: "Mã sản phẩm",
@@ -258,7 +258,7 @@ const ListProduct = () => {
 
   return (
     <div className="p-5">
-      <h1 style={{ fontSize: "30px", marginRight: 10 }}>Danh sách sản phẩm </h1>
+      {/* <h1 style={{ fontSize: "30px", marginRight: 10 }}>Danh sách sản phẩm </h1> */}
       <Mui.Grid container spacing={2} sx={{ mb: 2 }}>
         <Mui.Grid item xs={1.5}>
           <Antd.Dropdown overlay={menu} disabled={selectProduct.length < 1}>
@@ -312,12 +312,18 @@ const ListProduct = () => {
         <Mui.Grid item xs={12}>
           <Mui.Paper sx={{ pb: 2 }}>
             <Products />
-            <div style={{ display: "flex", justifyContent: "end" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                marginRight: "2%",
+              }}
+            >
               <Antd.Pagination
                 responsive
                 style={{ marginTop: 10, marginRight: 10 }}
                 pageSize={productFilter.size}
-                showSizeChanger
+                // showSizeChanger
                 showQuickJumper
                 defaultCurrent={1}
                 total={totalPage}

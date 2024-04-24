@@ -32,7 +32,7 @@ const ImportInvoiceHistory = ({ data, reload }) => {
           key="yooo"
         >
           <Table
-            rowKey="statusName"
+            rowKey={"statusName"}
             columns={columnsHistoryStatus}
             dataSource={data}
             pagination={false}

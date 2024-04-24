@@ -177,7 +177,7 @@ const RoleManager = () => {
         // rowSelection={rowSelection}
         query={rolesApi}
         columns={columns}
-        rowKey="id"
+        rowKey={"id"}
       />
 
       <Modal

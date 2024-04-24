@@ -13,7 +13,7 @@ import Search from "antd/lib/input/Search";
 import useTitle from "../../constant/useTitle";
 
 export default function Categories() {
-  useTitle("", "Danh mục");
+  useTitle("Danh mục sản phẩm", "Danh mục");
   const [response, setResponse] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [status, setStatus] = useState(false);
@@ -154,8 +154,8 @@ export default function Categories() {
   };
 
   return (
-    <div className="m-5">
-      <h1 style={{ fontSize: "30px", marginRight: 10 }}>Danh sách danh mục </h1>
+    <div className="p-5">
+      {/* <h1 style={{ fontSize: "30px", marginRight: 10 }}>Danh sách danh mục </h1> */}
       <div
         style={{
           marginBottom: 16,
@@ -201,6 +201,7 @@ export default function Categories() {
         columns={columns}
         dataSource={data}
         loading={{ spinning: reload }}
+        pagination = {{pageSize: 10}}
       />
     </div>
   );

@@ -12,7 +12,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import useTitle from "../../constant/useTitle";
 
 const ListImportInvoice = () => {
-  useTitle("", "Đơn nhập hàng");
+  useTitle("Đơn nhập hàng", "Đơn nhập hàng");
   const navigate = useNavigate();
   const [importInvoices, setImportInvoices] = useState([]);
   const [importInvoicesIsDone, setImportInvoicesIsDone] = useState([]);
@@ -46,7 +46,6 @@ const ListImportInvoice = () => {
 
   useEffect(() => {
     loadData(keyword);
-    document.title = "Đơn nhập hàng";
   }, []);
 
   const OperationsSlot = (
@@ -64,24 +63,22 @@ const ListImportInvoice = () => {
       label: "Tất cả cả đơn hàng",
       children: (
         <>
-          {importInvoices.length > 0 && (
-            <Table
-              dataSource={importInvoices}
-              columns={ImportInvoiceColumn.filter(
-                (col) => col.dataIndex !== "isReturn"
-              )}
-              rowKey="code"
-              pagination={{ defaultPageSize: 10 }}
-              onRow={(record) => {
-                return {
-                  onClick: (event) =>
-                    navigate({ pathname: `details/${record.code}` }),
-                };
-              }}
-              loading={!isLoading}
-              // rowSelection={rowSelection}
-            />
-          )}
+          <Table
+            dataSource={importInvoices}
+            columns={ImportInvoiceColumn.filter(
+              (col) => col.dataIndex !== "isReturn"
+            )}
+            rowKey={"code"}
+            pagination={{ defaultPageSize: 10 }}
+            onRow={(record) => {
+              return {
+                onClick: (event) =>
+                  navigate({ pathname: `details/${record.code}` }),
+              };
+            }}
+            loading={!isLoading}
+            // rowSelection={rowSelection}
+          />
         </>
       ),
     },
@@ -90,26 +87,24 @@ const ListImportInvoice = () => {
       label: "Đang giao dịch",
       children: (
         <>
-          {importInvoicesIsDone.length > 0 && (
-            <Table
-              dataSource={importInvoicesIsDone}
-              columns={ImportInvoiceColumn.filter(
-                (col) => col.dataIndex !== "isReturn"
-              )}
-              rowKey="code"
-              pagination={{ defaultPageSize: 10 }}
-              onRow={(record) => {
-                return {
-                  onClick: (event) =>
-                    navigate({
-                      pathname: `/coordinator/purchase_orders/details/${record.code}`,
-                    }),
-                };
-              }}
-              loading={!isLoading}
-              // rowSelection={rowSelection}
-            />
-          )}
+          <Table
+            dataSource={importInvoicesIsDone}
+            columns={ImportInvoiceColumn.filter(
+              (col) => col.dataIndex !== "isReturn"
+            )}
+            rowKey={"code"}
+            pagination={{ defaultPageSize: 10 }}
+            onRow={(record) => {
+              return {
+                onClick: (event) =>
+                  navigate({
+                    pathname: `/coordinator/purchase_orders/details/${record.code}`,
+                  }),
+              };
+            }}
+            loading={!isLoading}
+            // rowSelection={rowSelection}
+          />
         </>
       ),
     },
@@ -118,26 +113,24 @@ const ListImportInvoice = () => {
       label: "Trả hàng",
       children: (
         <>
-          {importInvoicesIsReturn.length > 0 && (
-            <Table
-              dataSource={importInvoicesIsReturn}
-              columns={ImportInvoiceColumn.filter(
-                (col) => col.dataIndex !== "isReturn"
-              )}
-              rowKey="code"
-              pagination={{ defaultPageSize: 10 }}
-              onRow={(record) => {
-                return {
-                  onClick: (event) =>
-                    navigate({
-                      pathname: `/purchase_orders/details/${record.code}`,
-                    }),
-                };
-              }}
-              loading={!isLoading}
-              // rowSelection={rowSelection}
-            />
-          )}
+          <Table
+            dataSource={importInvoicesIsReturn}
+            columns={ImportInvoiceColumn.filter(
+              (col) => col.dataIndex !== "isReturn"
+            )}
+            rowKey={"code"}
+            pagination={{ defaultPageSize: 10 }}
+            onRow={(record) => {
+              return {
+                onClick: (event) =>
+                  navigate({
+                    pathname: `/coordinator/purchase_orders/details/${record.code}`,
+                  }),
+              };
+            }}
+            loading={!isLoading}
+            // rowSelection={rowSelection}
+          />
         </>
       ),
     },
@@ -149,17 +142,12 @@ const ListImportInvoice = () => {
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "25px",
-            alignItems: "center",
+            paddingBottom: "20px",
           }}
         >
-          <h1 style={{ fontSize: "30px", margin: 0, marginRight: 10 }}>
-            Đơn nhập hàng
-          </h1>
           <Link to="/coordinator/purchase_orders/create">
             <Button type="primary">
-              <PlusOutlined /> Tạo mới đơn hàng
+              <PlusOutlined /> Tạo đơn nhập hàng
             </Button>
           </Link>
         </div>

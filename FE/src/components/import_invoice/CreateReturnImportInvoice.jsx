@@ -163,15 +163,14 @@ const CreateReturnImportInvoice = () => {
   };
   return (
     <div className="p-5">
-      <h2 style={{ fontSize: "15px" }}>
+      <h2 style={{ fontSize: "15px", paddingBottom: 20 }}>
         <Link
           to={`/coordinator/purchase_orders/details/${detailInvoices?.anImport.code}`}
         >
           <LeftOutlined /> Đơn nhập hàng
         </Link>
       </h2>
-      <div></div>
-      <div style={{ marginTop: "45px" }}>
+      <div>
         <Row gutter={24}>
           <Col span={18}>
             <div className="block" style={{ padding: 0 }}>
@@ -186,7 +185,7 @@ const CreateReturnImportInvoice = () => {
               <div style={{ padding: 20 }}>
                 {importReturn.length > 0 ? (
                   <Table
-                    rowKey="code"
+                    rowKey={"code"}
                     columns={columnsImportReturnInvoice}
                     dataSource={importReturn}
                     pagination={false}

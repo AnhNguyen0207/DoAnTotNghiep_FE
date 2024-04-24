@@ -4,15 +4,9 @@ import NumberFormat from "react-number-format";
 import { Link } from "react-router-dom";
 import { findInventoryByQuantity } from "../../api/inventory";
 
-const InventoryByQuantity = (inventoryId, status) => {
+const InventoryByQuantity = (inventoryId) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [data, setData] = useState([]);
-
-  useEffect(() => {
-    findInventoryByQuantity(inventoryId).then((response) => {
-      setData(response.data);
-    });
-  }, [status]);
 
   const columns = [
     {
@@ -58,6 +52,9 @@ const InventoryByQuantity = (inventoryId, status) => {
   ];
 
   const showModal = () => {
+    findInventoryByQuantity(inventoryId).then((response) => {
+      setData(response.data);
+    });
     setIsModalOpen(true);
   };
 

@@ -4,7 +4,6 @@ import {
   Select,
   Popconfirm,
   Input,
-  PageHeader,
   message,
   Spin,
   Empty,
@@ -12,6 +11,7 @@ import {
   Tag,
 } from "antd";
 import React, { useEffect, useState } from "react";
+import { LeftOutlined } from "@ant-design/icons";
 import { findProductById } from "../../api/productVariant";
 import "../../styles/file.css";
 import {
@@ -25,17 +25,18 @@ import { createExport } from "../../api/export";
 import { creatDetailExport } from "../../api/detailExport";
 import { Button } from "antd";
 import { DeleteTwoTone } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { createExportStatus } from "../../api/exportStatus";
+import useTitle from "../../constant/useTitle";
 import { useSelector } from "react-redux";
 
 const Create = () => {
+  useTitle("Tạo phiếu chuyển hàng", "Tạo phiếu chuyển hàng");
   const [products, setProducts] = useState([]);
   const [inventorySend, setInventorySend] = useState();
   const [inventoryReceive, setInventoryReceive] = useState();
   const [exportId, setExportId] = useState();
   const [loading, setLoading] = useState(false);
-  const [inventoryId, setInventoryId] = useState(7);
   const [productVariant, setProductVariant] = useState();
   const [code, setCode] = useState();
   const [note, setNote] = useState();
@@ -47,8 +48,8 @@ const Create = () => {
   const user = useSelector((state) => state.user);
 
   const [total, setTotal] = useState(0);
+  const [quantityProducts, setQuantityProducts] = useState(0);
   useEffect(() => {
-    document.title = "Tạo phiếu chuyển hàng";
     let b = 0;
     products.map((e) => {
       b += e.quantity * 1;
@@ -86,7 +87,7 @@ const Create = () => {
       });
     }
   };
-  const data = products;
+
   const columns = [
     {
       title: "Mã hàng",
@@ -138,9 +139,11 @@ const Create = () => {
       },
     },
   ];
-  const [quantityProducts, setQuantityProducts] = useState(0);
 
   const handleClickOptionProduct = (e) => {
+    if (e === null) {
+      return;
+    }
     const id = e[1] * 1;
     const isFound = products.findIndex(
       (element) => element.getProductById.id === id
@@ -165,37 +168,34 @@ const Create = () => {
       message.warning(
         <div style={{ color: "red" }}>Sản phẩm đã được chọn</div>
       );
-      setProducts((prev) => {
-        prev.map((prod) => {
-          if (prod.getProductById.id === id) {
-            prod.quantity = prod.quantity * 1 + 1;
-          }
-        });
-        return [...prev];
-      });
+      // setProducts((prev) => {
+      //   prev.map((prod) => {
+      //     if (prod.getProductById.id === id) {
+      //       prod.quantity = prod.quantity * 1 + 1;
+      //     }
+      //   });
+      //   return [...prev];
+      // });
     }
   };
 
   const [listInventory, setListInventory] = useState();
   const allQueries = async () => {
-    const productVariant = await getProductVariants(inventoryId);
     const getListInventory = (await getAllActiveInventory()).data;
-    setProductVariant(productVariant.productVariants);
     setListInventory(getListInventory);
   };
 
   useEffect(() => {
     allQueries();
-    setProducts([]);
-  }, [inventoryId]);
-
-  const dataProduct = productVariant;
+  }, []);
 
   const handleSubmit = async () => {
     setLoading(true);
     if (
       exportValue.receiveInventory !== undefined &&
+      exportValue.receiveInventory !== null &&
       exportValue.exportInventory !== undefined &&
+      exportValue.exportInventory !== null &&
       products.length > 0
     ) {
       const saveExport = await createExport(exportValue);
@@ -211,11 +211,17 @@ const Create = () => {
       });
       creatDetailExportSubmit.mutate(detailExport);
     } else {
-      if (exportValue.receiveInventory === undefined) {
+      if (
+        exportValue.receiveInventory === undefined ||
+        exportValue.receiveInventory === null
+      ) {
         message.error(
           <div style={{ color: "red" }}>Chi nhánh nhận chưa được chọn</div>
         );
-      } else if (exportValue.exportInventory === undefined) {
+      } else if (
+        exportValue.exportInventory === undefined ||
+        exportValue.exportInventory === null
+      ) {
         message.error(
           <div style={{ color: "red" }}>Chi nhánh chuyển chưa được chọn</div>
         );
@@ -268,9 +274,7 @@ const Create = () => {
   });
   const [spin, setSpin] = useState(true);
   useEffect(() => {
-    setTimeout(() => {
-      setSpin(false);
-    }, 1000);
+    setSpin(false);
   }, []);
 
   const [inSend, setInSend] = useState(listInventory);
@@ -290,10 +294,15 @@ const Create = () => {
     setReceive(null);
     setInSend(listInventory);
     setInReceive(listInventory);
+    setProductVariant(null);
+    setInventoryReceive(null);
+    setInventorySend(null);
+    setProducts([])
   };
   const handleClickOptionSend = async (e) => {
     setSend(e);
-    setInventoryId(e);
+    const productVariant = await getProductVariants(e);
+    setProductVariant(productVariant.productVariants);
     const exportByInventory = await findInventoryById(e);
     setInventorySend(exportByInventory);
     setInReceive(listInventory.filter((i) => i.id !== e));
@@ -303,9 +312,6 @@ const Create = () => {
     const exportReceive = await findInventoryById(e);
     setInventoryReceive(exportReceive);
     setInSend(listInventory.filter((i) => i.id !== e));
-  };
-  const handleCode = (e) => {
-    setCode(e.target.value);
   };
 
   const [modal2Visible, setModal2Visible] = useState(false);
@@ -319,25 +325,7 @@ const Create = () => {
     {
       title: "Tên sản phẩm",
       dataIndex: "name",
-    },
-    {
-      title: "Số lượng",
-      dataIndex: ["quantity", "id"],
-      render: (a, text) => {
-        return (
-          <Input
-            type={"number"}
-            style={{ width: "50%" }}
-            onChange={handleQuantity}
-            id={text?.id + ""}
-            key={text?.id}
-            defaultValue={1}
-            min={1}
-            max={text.quantity}
-            size={"middle"}
-          />
-        );
-      },
+      align: "center",
     },
   ];
 
@@ -349,13 +337,12 @@ const Create = () => {
     selectedRowKeys,
     onChange: onSelectChange,
     onSelect: (record, selected, selectedRows) => {
-      const id = record.id;
       if (selected) {
         const isFound = products.findIndex(
-          (element) => element.getProductById.id * 1 === id
+          (element) => element.getProductById.id * 1 === record.id
         );
         const hanldeClick = async () => {
-          const getProductById = await findProductById(id);
+          const getProductById = await findProductById(record.id);
           setProducts([
             {
               getProductById: getProductById,
@@ -369,7 +356,7 @@ const Create = () => {
         } else {
           setProducts((prev) => {
             prev.map((prod) => {
-              if (prod.getProductById.id === id) {
+              if (prod.getProductById.id === record.id) {
                 prod.quantity = prod.quantity * 1 + 1;
               }
             });
@@ -378,11 +365,12 @@ const Create = () => {
         }
       } else {
         const newData = products.filter(
-          (item) => item.getProductById.id * 1 !== id
+          (item) => item.getProductById.id * 1 !== record.id
         );
         setProducts(newData);
       }
     },
+
     onSelectAll(selected, selectedRows, changeRows) {
       setProducts(
         selectedRows.map((e) => ({
@@ -391,50 +379,48 @@ const Create = () => {
         }))
       );
     },
+
     getCheckboxProps: (record) => {
       return {
         disabled: record.quantity === 0,
       };
     },
   };
-  const [pagination1, setPagination1] = useState({
-    current: 1,
-    pageSize: 3,
-  });
-  const handlePagination = (page) => {
-    setPagination1({
-      current: page.current,
-    });
-  };
+
   return (
     <Spin spinning={spin}>
       <div className="p-5">
-        <div className="site-page-header-ghost-wrapper">
-          <PageHeader
-            ghost={false}
-            onBack={() => window.history.back()}
-            title="Tạo phiếu chuyển hàng"
-            subTitle=""
-            extra={[
-              <Button
-                key="2"
-                onClick={() => window.history.back()}
-                className="rounded-md"
-              >
-                Thoát
-              </Button>,
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            paddingBottom: "20px",
+          }}
+        >
+          <h2 style={{ fontSize: "15px" }}>
+            <Link to="/coordinator/storage">
+              <LeftOutlined /> Danh sách phiếu chuyển
+            </Link>
+          </h2>
+          <div>
+            <Button
+              key="2"
+              onClick={() => window.history.back()}
+              className="rounded-md"
+            >
+              Thoát
+            </Button>
 
-              <Button
-                key="1"
-                type="primary"
-                onClick={handleSubmit}
-                loading={loading}
-                className="rounded-md"
-              >
-                Lưu
-              </Button>,
-            ]}
-          />
+            <Button
+              key="1"
+              type="primary"
+              onClick={handleSubmit}
+              loading={loading}
+              className="rounded-md"
+            >
+              Lưu
+            </Button>
+          </div>
         </div>
         <div className="content">
           <div className="content-top">
@@ -527,7 +513,7 @@ const Create = () => {
                   <Button onClick={handleClear}>Xoá lựa chọn</Button>
                 </div>
               </div>
-              <div className="select-inventory-left">
+              {/* <div className="select-inventory-left">
                 <div className="select-inventory-top">
                   <div className="title-p">
                     <p>Mã phiếu chuyển</p>
@@ -535,7 +521,7 @@ const Create = () => {
                   <Input placeholder="Nhập mã phiếu" onChange={handleCode} />
                 </div>
                 <div className="select-inventory-top"></div>
-              </div>
+              </div> */}
             </div>
             <div className="additional-information">
               <div className="title">
@@ -568,24 +554,22 @@ const Create = () => {
                   onSelect={handleClickOptionProduct}
                   allowClear
                 >
-                  {productVariant !== undefined ? (
-                    productVariant.map((item) => (
-                      <Select.Option
-                        value={[item.name, item.id]}
-                        style={{ width: "100%" }}
-                        key={item.id}
-                      >
-                        <div>
+                  {productVariant !== undefined && productVariant !== null
+                    ? productVariant.map((item) => (
+                        <Select.Option
+                          value={[item.name, item.id]}
+                          style={{ width: "100%" }}
+                          key={item.id}
+                        >
                           <div>
-                            Mã hàng : {item.code} - Tên : {item.name}
+                            <div>
+                              Mã hàng : {item.code} - Tên : {item.name}
+                            </div>
+                            <div>Số lượng : {item.quantity}</div>
                           </div>
-                          <div>Số lượng : {item.quantity}</div>
-                        </div>
-                      </Select.Option>
-                    ))
-                  ) : (
-                    <Spin />
-                  )}
+                        </Select.Option>
+                      ))
+                    : null}
                 </Select>
               </div>
               <div className="Modal">
@@ -600,18 +584,16 @@ const Create = () => {
                     open={modal2Visible}
                     onCancel={() => setModal2Visible(false)}
                     footer={null}
-                    width={"1000px"}
+                    width={"700px"}
                   >
                     <div className="select-modal">
                       <Table
-                        rowKey="id"
+                        rowKey={"id"}
                         columns={columns_modal}
-                        dataSource={dataProduct}
+                        dataSource={productVariant}
                         style={{ width: "100%" }}
-                        scroll={{ y: 240 }}
                         rowSelection={rowSelection}
-                        pagination={pagination1}
-                        onChange={handlePagination}
+                        pagination={{ pageSize: 4 }}
                       />
                     </div>
                     <span style={{ color: "blue", fontWeight: 600 }}>
@@ -624,9 +606,9 @@ const Create = () => {
             <div>
               {products.length > 0 ? (
                 <Table
-                  rowKey="uid"
+                  rowKey={"id"}
                   columns={columns}
-                  dataSource={data}
+                  dataSource={products}
                   style={{
                     width: "100%",
                   }}

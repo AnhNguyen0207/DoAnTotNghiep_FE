@@ -36,18 +36,34 @@ import {
 } from "../../api/exportStatus";
 import moment from "moment";
 
-const Create = () => {
+const Edit = () => {
   const { id } = useParams();
+  const item = Number.parseInt(id);
 
   const [exportId, setExportId] = useState();
   const [loading, setLoading] = useState(false);
-  const [inventoryId, setInventoryId] = useState(1);
+  const [inventoryId, setInventoryId] = useState();
   const [productVariant, setProductVariant] = useState();
   const navigate = useNavigate();
   const [exportById, setExportById] = useState();
   const [detailExport, setDetailExport] = useState([]);
   const [status, setStattus] = useState();
   const [total, setTotal] = useState(0);
+  const [spin, setSpin] = useState(true);
+  const [listInventory, setListInventory] = useState();
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 3,
+  });
+  const [pagination1, setPagination1] = useState({
+    current: 1,
+    pageSize: 3,
+  });
+  const [inSend, setInSend] = useState(listInventory);
+  const [inReceive, setInReceive] = useState(listInventory);
+  const [a, setA] = useState(1);
+  const [modal2Visible, setModal2Visible] = useState(false);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   const dataEdit = async () => {
     const exportData = await findExportById(item);
@@ -63,8 +79,9 @@ const Create = () => {
     document.title = "Cập nhật phiếu chuyển hàng";
     setTimeout(() => {
       setSpin(false);
-    }, 2000);
+    }, 200);
   }, []);
+
   useEffect(() => {
     let b = 0;
     detailExport.map((e) => {
@@ -72,6 +89,7 @@ const Create = () => {
     });
     setTotal(b);
   }, [detailExport]);
+
   const handleDelete = async (e) => {
     const newData = detailExport.find(
       (item) => item.productVariant.id * 1 === e * 1
@@ -81,6 +99,7 @@ const Create = () => {
       detailExport.filter((item) => item.productVariant.id * 1 !== e * 1)
     );
   };
+
   const handleQuantity = (e) => {
     const quantity = e.target.value;
     const id = e.target.id * 1;
@@ -105,16 +124,19 @@ const Create = () => {
       });
     }
   };
-  const [listInventory, setListInventory] = useState();
+
   const allQueries = async () => {
+    if (!inventoryId) return;
     const productVariant = await getProductVariants(inventoryId);
     const getListInventory = await getAllInventory();
     setProductVariant(productVariant.productVariants);
     setListInventory(getListInventory);
   };
+
   useEffect(() => {
     allQueries();
   }, [inventoryId]);
+
   const data = detailExport;
   const columns = [
     {
@@ -252,7 +274,6 @@ const Create = () => {
         </div>
       );
     }
-
     setLoading(false);
   };
 
@@ -264,27 +285,16 @@ const Create = () => {
     message.success(<div>Cập nhật phiếu chuyển hàng thành công</div>, 2);
     navigate(`/coordinator/storage/stock_transfers/${id}`, { replace: true });
   };
+
   if (creatDetailExportSubmit.isSuccess) {
     handleStatus(exportId);
   }
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 3,
-  });
-  const [pagination1, setPagination1] =
-    useState >
-    {
-      current: 1,
-      pageSize: 3,
-    };
-  // Edit ----------------------------------------------------
+
+  // // Edit ----------------------------------------------------
   if (id === undefined) {
     return <div></div>;
   }
-  const item = Number.parseInt(id);
-  const [inSend, setInSend] = useState(listInventory);
-  const [inReceive, setInReceive] = useState(listInventory);
-  const [a, setA] = useState(1);
+
   useEffect(() => {
     if (listInventory === undefined) {
       setA(a + 1);
@@ -292,6 +302,7 @@ const Create = () => {
     setInSend(listInventory);
     setInReceive(listInventory);
   }, [a]);
+
   const handleClickOptionSend = async (e) => {
     setInventoryId(e);
     setDetailExport([]);
@@ -303,6 +314,7 @@ const Create = () => {
 
     setInReceive(listInventory.filter((i) => i.id !== e));
   };
+
   const handleClickOptionReceive = async (e) => {
     const exportReceive = await findInventoryById(e);
     setExportById((prev) => ({
@@ -312,6 +324,7 @@ const Create = () => {
 
     setInSend(listInventory.filter((i) => i.id !== e));
   };
+
   const handleCode = (e) => {
     setStattus((prev) => ({
       ...prev,
@@ -324,9 +337,6 @@ const Create = () => {
       note: e.target.value,
     }));
   };
-
-  const [modal2Visible, setModal2Visible] = useState(false);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   const columns_modal = [
     {
@@ -423,7 +433,6 @@ const Create = () => {
       };
     },
   };
-  const [spin, setSpin] = useState(true);
 
   return (
     <Spin spinning={spin}>
@@ -504,7 +513,7 @@ const Create = () => {
                     placeholder="Tìm kiếm chi nhánh"
                     onSelect={handleClickOptionReceive}
                     value={exportById?.receiveInventory?.id}
-                    disabled={status?.status === 1 ? true : false}
+                    disabled
                   >
                     {inReceive &&
                       inReceive.map((item) => (
@@ -605,7 +614,7 @@ const Create = () => {
                     >
                       <div className="select-modal">
                         <Table
-                          rowKey="id"
+                          rowKey={"id"}
                           columns={columns_modal}
                           dataSource={dataProduct}
                           style={{ width: "100%" }}
@@ -630,7 +639,7 @@ const Create = () => {
             <div>
               {detailExport.length > 0 ? (
                 <Table
-                  rowKey="uid"
+                  rowKey={"id"}
                   columns={columns}
                   dataSource={data}
                   style={{
@@ -672,5 +681,4 @@ const Create = () => {
     </Spin>
   );
 };
-
-export default Create;
+export default Edit;
