@@ -38,6 +38,7 @@ import PDFStockTransfer from "./PDFStockTransfer";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PrintIcon from "@mui/icons-material/Print";
 import useTitle from "../../constant/useTitle";
+import ToastCustom from "../../constant/Toast";
 export const Status = () => {
   const { id } = useParams();
   const [exportById, setExportById] = useState();
@@ -84,11 +85,15 @@ export const Status = () => {
             exportById?.exportInventory?.id,
             detailExport
           );
-          message.success("Xuất phiếu chuyển hàng thành công");
+          ToastCustom.fire({
+            icon: "success",
+            title: "Xuất phiếu chuyển hàng thành công",
+          });
         } else {
-          message.error(
-            "Sản phẩm trong kho không đủ xin vui lòng huỷ hoặc sửa phiếu"
-          );
+          ToastCustom.fire({
+            icon: "error",
+            title: "Sản phẩm trong kho không đủ xin vui lòng huỷ hoặc sửa phiếu",
+          })
         }
       } else if (status?.status === 1) {
         await updateExportStatusById(item, {
@@ -108,7 +113,10 @@ export const Status = () => {
           exportById?.receiveInventory?.id,
           detailExport
         );
-        message.success("Nhận hàng thành công");
+        ToastCustom.fire({
+          icon: "success",
+          title: "Nhận hàng thành công",
+        });
       }
       setIsModalOpen(false);
       setLoading(false);

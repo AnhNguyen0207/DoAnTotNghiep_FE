@@ -35,6 +35,7 @@ import {
   findExportStatusById,
 } from "../../api/exportStatus";
 import moment from "moment";
+import ToastCustom from "../../constant/Toast";
 
 const Edit = () => {
   const { id } = useParams();
@@ -268,11 +269,10 @@ const Edit = () => {
         dateUpdate: moment(new Date()).format("DD/MM/YYYY HH:mm").toString(),
       });
     } else {
-      message.error(
-        <div style={{ color: "red" }}>
-          Vui lòng chọn sản phẩm vào phiếu chuyển hàng
-        </div>
-      );
+      ToastCustom.fire({
+        icon: "error",
+        title: "Vui lòng chọn sản phẩm vào phiếu chuyển hàng",
+      })
     }
     setLoading(false);
   };
@@ -282,7 +282,10 @@ const Edit = () => {
   );
 
   const handleStatus = async (id) => {
-    message.success(<div>Cập nhật phiếu chuyển hàng thành công</div>, 2);
+    ToastCustom.fire({
+      icon: "success",
+      title: "Cập nhật phiếu chuyển hàng thành công",
+    });
     navigate(`/coordinator/storage/stock_transfers/${id}`, { replace: true });
   };
 

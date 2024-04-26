@@ -7,6 +7,7 @@ import { rolesApi } from "../../api/employeesApi";
 import { DeletedIcon, PenIcon } from "../../common_components";
 import { Table, Button } from "../../common_components";
 import useTitle from "../../constant/useTitle";
+import ToastCustom from "../../constant/Toast";
 
 const RoleManager = () => {
   useTitle("Chức vụ", "Chức vụ");
@@ -27,11 +28,17 @@ const RoleManager = () => {
     },
     {
       onError(error, variables, context) {
-        message.error("Có lỗi xảy ra. Vui lòng thử lại!");
+        ToastCustom.fire({
+          icon: "error",
+          title: "Có lỗi xảy ra. Vui lòng thử lại",
+        })
       },
       onSuccess: () => {
         setAddRoleModal(false);
-        message.success("Sửa thông tin thành công!");
+        ToastCustom.fire({
+          icon: "success",
+          title: "Sửa thông tin thành công",
+        });
       },
     }
   );
@@ -46,10 +53,16 @@ const RoleManager = () => {
     },
     {
       onError(error, variables, context) {
-        message.error("Có lỗi xảy ra. Vui lòng thử lại!");
+        ToastCustom.fire({
+          icon: "error",
+          title: "Có lỗi xảy ra. Vui lòng thử lại",
+        })
       },
       onSuccess: () => {
-        message.success("Xóa thành công!");
+        ToastCustom.fire({
+          icon: "success",
+          title: "Xóa thành công",
+        });
         setSelectedRowKeys([]);
       },
     }

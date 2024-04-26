@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Button } from "../../common_components";
 import { PlusCircleOutlined } from "@ant-design/icons";
+import ToastCustom from "../../constant/Toast";
 
 export default function Role({ roles, empId, refetch }) {
   const updateRole = useMutation(
@@ -26,14 +27,24 @@ export default function Role({ roles, empId, refetch }) {
         refetch && refetch();
       },
       onError: () => {
-        message.error("Có lỗi xảy ra. Vui lòng thử lại");
+        ToastCustom.fire({
+          icon: "error",
+          title: "Có lỗi xảy ra. Vui lòng thử lại",
+        });
       },
     }
   );
   const [roleForm] = Form.useForm();
   const [modal, setModal] = useState(false);
   const updateRoles = () => {
-    updateRole.mutate({ rolesString: roleForm.getFieldValue("roles") });
+    if (roleForm.getFieldValue("roles").length === 0) {
+      ToastCustom.fire({
+        icon: "warning",
+        title: "Vui lòng chọn chức vụ",
+      });
+    } else {
+      updateRole.mutate({ rolesString: roleForm.getFieldValue("roles") });
+    }
   };
 
   return (

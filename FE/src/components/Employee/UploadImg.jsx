@@ -1,6 +1,7 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { message, Upload, Form } from "antd";
 import React, { useState } from "react";
+import ToastCustom from "../../constant/Toast";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
@@ -11,7 +12,10 @@ const getBase64 = (img, callback) => {
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
   if (!isJpgOrPng) {
-    message.error("Chỉ nhận JPG/PNG file!");
+    ToastCustom.fire({
+      icon: "error",
+      title: "Chỉ nhận JPG/PNG file",
+    })
   }
   return isJpgOrPng
 };
@@ -41,6 +45,7 @@ const UploadImg = () => {
     </div>
   );
 
+
   return (
     <Form.Item name="avatar" label="Ảnh">
       <Upload
@@ -49,6 +54,7 @@ const UploadImg = () => {
         className="avatar-uploader"
         showUploadList={false}
         // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        fileList={[{ url: imageUrl }]}
         beforeUpload={beforeUpload}
         onChange={handleChange}
       >

@@ -134,12 +134,11 @@ table#miyazaki {
   border-collapse: collapse;
   font-family: Agenda-Light, sans-serif;
   font-weight: 100;
-  background: #d8e0e7;
+  background: #FAFAFA;
   color: rgb(0, 0, 0, 0.87);
   text-rendering: optimizeLegibility;
-  border-radius: 5px;
+  border-radius: 2px 2px 0 0;
   width: 100%;
-  border: 1px solid #ddd;
 }
 table#miyazaki caption {
   font-size: 2rem;
@@ -153,18 +152,19 @@ table#miyazaki caption {
 }
 table#miyazaki thead th {
   font-weight: 550;
+  text-align: left;
 }
 table#miyazaki thead th,
 table#miyazaki tbody td {
-  padding: 0.8rem;
-  font-size: 1rem;
+  padding: 16px;
+  font-size: 14px;
 }
 table#miyazaki tbody td {
-  padding: 0.8rem;
-  font-size: 1rem;
+  padding: 16px;
+  font-size: 14px;
   color: #444;
   background: rgb(255, 255, 255);
-  text-align: center;
+  text-align: left;
 }
 table#miyazaki tbody tr:not(:last-child) {
   border-top: 1px solid #ddd;

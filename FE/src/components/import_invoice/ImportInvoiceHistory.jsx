@@ -28,7 +28,7 @@ const ImportInvoiceHistory = ({ data, reload }) => {
           onOk={() => setVisible(false)}
           onCancel={() => setVisible(false)}
           width={1000}
-          footer={[]}
+          footer={false}
           key="yooo"
         >
           <Table

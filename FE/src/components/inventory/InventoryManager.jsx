@@ -64,12 +64,18 @@ const InventoryManager = () => {
 
   const minQuantityMutation = useMutation(updateMinQuantityStorage, {
     onSuccess: () => {
-      message.success("Thay đổi thành công", 2);
+      ToastCustom.fire({
+        icon: "success",
+        title: "Thay đổi thành công",
+      });
       setMinQuantityModal(false);
       setStatus(!status);
     },
     onError: () => {
-      message.error("Có lỗi xảy ra, vui lòng thử lại", 2);
+      ToastCustom.fire({
+        icon: "error",
+        title: "Có lỗi xảy ra, vui lòng thử lại",
+      })
       setMinQuantityModal(true);
     },
   });
@@ -247,7 +253,7 @@ const InventoryManager = () => {
         deleteListProductVariant(idResult).then(() => {
           ToastCustom.fire({
             icon: "success",
-            title: "Xoá thành công!",
+            title: "Xoá thành công",
           }).then((r) => {});
           setStatus(!status);
           setSelectedRowKeys([]);
@@ -275,7 +281,7 @@ const InventoryManager = () => {
         deleteListProductVariant(idResult).then(() => {
           ToastCustom.fire({
             icon: "success",
-            title: "Xoá thành công!",
+            title: "Xoá thành công",
           }).then((r) => {});
           setStatus(!status);
           setSelectedRowKeys([]);

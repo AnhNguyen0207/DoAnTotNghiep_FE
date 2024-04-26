@@ -10,7 +10,7 @@ import ToastCustom from "../../constant/Toast";
 import { getCategories } from "../../api/apiCategory";
 import SelectCategory from "./SelectCategory";
 import SelectOption from "./SelectOption";
-import ImageUpload from "./ImageUpload";
+import ImageUpload from "../../common_components/ImageUpload";
 import useTitle from "../../constant/useTitle";
 
 function AddProduct(props) {

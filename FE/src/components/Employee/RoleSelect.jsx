@@ -5,7 +5,7 @@ import { ROLE_COLOR } from "../../constant";
 
 let roleChildren = [];
 export default function RoleSelect(props) {
-  useQuery(["roleid"], async () => {
+  useQuery(["roleId"], async () => {
     const { data } = await axios.get("http://localhost:8080/api/admin/roles", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),

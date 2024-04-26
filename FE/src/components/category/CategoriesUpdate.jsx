@@ -44,7 +44,7 @@ export default function CategoryUpdate({ status, categoryProp }) {
       .then(() => {
         ToastCustom.fire({
           icon: "success",
-          title: "Sửa thành công!",
+          title: "Sửa thành công",
         });
         formUpdate.resetFields();
         status();
@@ -53,7 +53,7 @@ export default function CategoryUpdate({ status, categoryProp }) {
       .catch(() => {
         ToastCustom.fire({
           icon: "error",
-          title: "Sửa không thành công!",
+          title: "Sửa không thành công",
         });
       });
   };

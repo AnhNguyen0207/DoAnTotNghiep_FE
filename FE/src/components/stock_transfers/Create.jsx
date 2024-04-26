@@ -29,6 +29,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { createExportStatus } from "../../api/exportStatus";
 import useTitle from "../../constant/useTitle";
 import { useSelector } from "react-redux";
+import ToastCustom from "../../constant/Toast";
 
 const Create = () => {
   useTitle("Tạo phiếu chuyển hàng", "Tạo phiếu chuyển hàng");
@@ -37,7 +38,7 @@ const Create = () => {
   const [inventoryReceive, setInventoryReceive] = useState();
   const [exportId, setExportId] = useState();
   const [loading, setLoading] = useState(false);
-  const [productVariant, setProductVariant] = useState();
+  const [productVariant, setProductVariant] = useState([]);
   const [code, setCode] = useState();
   const [note, setNote] = useState();
   const navigate = useNavigate();
@@ -215,22 +216,23 @@ const Create = () => {
         exportValue.receiveInventory === undefined ||
         exportValue.receiveInventory === null
       ) {
-        message.error(
-          <div style={{ color: "red" }}>Chi nhánh nhận chưa được chọn</div>
-        );
+        ToastCustom.fire({
+          icon: "warning",
+          title: "Chi nhánh nhận chưa được chọn",
+        })
       } else if (
         exportValue.exportInventory === undefined ||
         exportValue.exportInventory === null
       ) {
-        message.error(
-          <div style={{ color: "red" }}>Chi nhánh chuyển chưa được chọn</div>
-        );
+        ToastCustom.fire({
+          icon: "warning",
+          title: "Chi nhánh chuyển chưa được chọn",
+        })
       } else if (products.length === 0) {
-        message.error(
-          <div style={{ color: "red" }}>
-            Vui lòng chọn sản phẩm vào phiếu chuyển hàng
-          </div>
-        );
+        ToastCustom.fire({
+          icon: "warning",
+          title: "Vui lòng chọn sản phẩm vào phiếu chuyển hàng",
+        })
       }
 
       setLoading(false);
@@ -261,7 +263,10 @@ const Create = () => {
         accountCreate: user.id,
       });
     }
-    message.success(<div>Thêm mới thành công</div>, 2);
+    ToastCustom.fire({
+      icon: "success",
+      title: "Thêm mới thành công",
+    });
     navigate(`/coordinator/storage/stock_transfers/${id}`, { replace: true });
   };
   if (creatDetailExportSubmit.isSuccess) {
@@ -297,7 +302,7 @@ const Create = () => {
     setProductVariant(null);
     setInventoryReceive(null);
     setInventorySend(null);
-    setProducts([])
+    setProducts([]);
   };
   const handleClickOptionSend = async (e) => {
     setSend(e);
@@ -355,11 +360,11 @@ const Create = () => {
           hanldeClick();
         } else {
           setProducts((prev) => {
-            prev.map((prod) => {
-              if (prod.getProductById.id === record.id) {
-                prod.quantity = prod.quantity * 1 + 1;
-              }
-            });
+            // prev.map((prod) => {
+            //   if (prod.getProductById.id === record.id) {
+            //     prod.quantity = prod.quantity * 1 + 1;
+            //   }
+            // });
             return [...prev];
           });
         }

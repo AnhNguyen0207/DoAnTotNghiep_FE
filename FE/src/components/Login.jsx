@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserStore } from "../store/userSlice";
 import useTitle from "../constant/useTitle";
 import { useNavigate } from "react-router-dom";
+import ToastCustom from "../constant/Toast";
 
 const Login = () => {
   useTitle("", "Đăng nhập");
@@ -23,7 +24,10 @@ const Login = () => {
     },
     {
       onError: () => {
-        message.error("Tài khoản hoặc mật khẩu không đúng", 2);
+        ToastCustom.fire({
+          icon: "error",
+          title: "Tài khoản hoặc mật khẩu không đúng",
+        })
       },
       onSuccess(data, variables, context) {
         dispatch(
@@ -32,7 +36,10 @@ const Login = () => {
               accountId: data.accountId
           })
         );
-        openNotification();
+        ToastCustom.fire({
+          icon: "success",
+          title: "Đăng nhập thành công",
+        })
         navigate("/home", { replace: true });
       },
     }
@@ -43,13 +50,7 @@ const Login = () => {
     loginSubmit.mutate({ username, password });
   };
 
-  const openNotification = () => {
-    notification.success({
-      message: `Đăng nhập thành công`,
-      placement: "topRight",
-      duration: 2.5,
-    });
-  };
+  
 
   return (
     <>

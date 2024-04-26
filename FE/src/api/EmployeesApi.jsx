@@ -13,7 +13,7 @@ export const employeeDetailsApi = async (id) => {
 
 export const updateEmployeeApi = async (data) => {
   const token = localStorage.getItem("token");
-  return axios.post("http://localhost:8080/api/roles/emp", data, {
+  return axios.put("http://localhost:8080/employee", data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

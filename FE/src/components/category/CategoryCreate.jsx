@@ -34,7 +34,7 @@ export default function CategoryCreate({ status }) {
       .then(() => {
         ToastCustom.fire({
           icon: "success",
-          title: "Thêm thành công!",
+          title: "Thêm thành công",
         });
         formAdd.resetFields();
         status();
@@ -43,7 +43,7 @@ export default function CategoryCreate({ status }) {
       .catch(() => {
         ToastCustom.fire({
           icon: "error",
-          title: "Thêm không thành công!",
+          title: "Thêm không thành công",
         });
       });
   };

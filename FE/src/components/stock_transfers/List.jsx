@@ -314,8 +314,10 @@ export const ListExport = () => {
   };
   const handleSelect = () => {
     setParam({});
-    setSend(null);
+    setInReceive(listInventory);
+    setInSend(listInventory);
     setReceive(null);
+    setSend(null);
     setStatus(null);
   };
   return (
@@ -331,7 +333,8 @@ export const ListExport = () => {
           }}
         >
           <Button type="primary" onClick={hanldeClick}>
-          <PlusOutlined />Tạo phiếu chuyển hàng
+            <PlusOutlined />
+            Tạo phiếu chuyển hàng
           </Button>
         </div>
         <div style={{ backgroundColor: "white" }}>
@@ -356,7 +359,7 @@ export const ListExport = () => {
               }}
             >
               <Select
-                style={{ width: 120 }}
+                style={{ width: "160px" }}
                 onChange={handleChangeSelect}
                 placeholder={"Trạng thái"}
                 allowClear

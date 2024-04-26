@@ -5,7 +5,7 @@ import * as Antd from "antd";
 import { updateProduct } from "../../api/productServices";
 import ToastCustom from "../../constant/Toast";
 import SelectCategory from "./SelectCategory";
-import ImageUpload from "./ImageUpload";
+import ImageUpload from "../../common_components/ImageUpload";
 
 const variantCol = [
   {

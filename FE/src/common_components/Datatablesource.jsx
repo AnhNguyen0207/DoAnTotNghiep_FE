@@ -206,7 +206,7 @@ export const columnsHistoryStatus = [
     render: (data) => {
       const moment = require("moment");
       const d = new Date(data);
-      return <p>{moment(d, ["hh:mm A"]).format("DD/MM/YYYY HH:mm:ss")}</p>;
+      return <p>{moment(d, ["hh:mm A"]).format("DD/MM/YYYY HH:mm")}</p>;
     },
   },
 ];

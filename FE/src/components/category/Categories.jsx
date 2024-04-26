@@ -118,7 +118,7 @@ export default function Categories() {
         deleteListCategory(listId).then(() => {
           ToastCustom.fire({
             icon: "success",
-            title: "Xoá thành công!",
+            title: "Xoá thành công",
           }).then((r) => {});
           setStatus(!status);
           setSelectedRowKeys([]);
@@ -144,7 +144,7 @@ export default function Categories() {
         deleteListCategory(listId).then(() => {
           ToastCustom.fire({
             icon: "success",
-            title: "Xoá thành công!",
+            title: "Xoá thành công",
           }).then((r) => {});
           setStatus(!status);
           setSelectedRowKeys([]);
