@@ -8,7 +8,7 @@ const Authen = () => {
   const userRoles = useSelector((state) => state?.user?.authorities);
   const auth = userRoles?.some((r) => pathname?.includes(r));
 
-  if (userRoles?.includes("admin") || pathname?.includes("home") || auth) {
+  if (userRoles?.includes("admin") || userRoles?.includes("staff") || pathname?.includes("home") || auth) {
     return <Outlet />;
   } else {
     return <PageResult />

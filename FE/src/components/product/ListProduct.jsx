@@ -80,21 +80,26 @@ const ListProduct = () => {
       render: (id) => {
         return (
           <>
-            <Antd.Button
+            {/* <Antd.Button
               style={{ width: "40%", margin: 5 }}
               danger
               type={"ghost"}
               icon={<Delete />}
               onClick={() => deleteProduct(id)}
-            ></Antd.Button>
-            <Antd.Button
-              style={{ width: "40%" }}
-              type={"ghost"}
-              icon={<PreviewOutlined />}
-              onClick={() =>
-                navigate({ pathname: `/warehouse/products/${id}` })
-              }
-            ></Antd.Button>
+            ></Antd.Button> */}
+            <div className="flex">
+              <Antd.Button
+                style={{
+                  width: "40%",
+                  justifyContent: "center",
+                }}
+                type={"ghost"}
+                icon={<PreviewOutlined />}
+                onClick={() =>
+                  navigate({ pathname: `/warehouse/products/${id}` })
+                }
+              ></Antd.Button>
+            </div>
           </>
         );
       },
@@ -243,13 +248,13 @@ const ListProduct = () => {
             //     }
             // }}
 
-            rowSelection={{
-              selectedRowKeys: selectProduct,
-              onChange(selectedRowKeys, selectedRows, info) {
-                setSelectProduct(selectedRowKeys);
-                // selectProduct=selectedRowKeys
-              },
-            }}
+            // rowSelection={{
+            //   selectedRowKeys: selectProduct,
+            //   onChange(selectedRowKeys, selectedRows, info) {
+            //     setSelectProduct(selectedRowKeys);
+            //     // selectProduct=selectedRowKeys
+            //   },
+            // }}
           />
         </Antd.Spin>
       </>
@@ -260,7 +265,7 @@ const ListProduct = () => {
     <div className="p-5">
       {/* <h1 style={{ fontSize: "30px", marginRight: 10 }}>Danh sách sản phẩm </h1> */}
       <Mui.Grid container spacing={2} sx={{ mb: 2 }}>
-        <Mui.Grid item xs={1.5}>
+        {/* <Mui.Grid item xs={1.5}>
           <Antd.Dropdown overlay={menu} disabled={selectProduct.length < 1}>
             <Antd.Button
               style={{ width: "100%", fontSize: "14px", margin: 0 }}
@@ -272,8 +277,8 @@ const ListProduct = () => {
               </Antd.Space>
             </Antd.Button>
           </Antd.Dropdown>
-        </Mui.Grid>
-        <Mui.Grid item xs={8.5} sx={{ m: 0 }}>
+        </Mui.Grid> */}
+        <Mui.Grid item xs={10} sx={{ m: 0 }}>
           <Antd.Input
             placeholder="Nhập tên hoặc mã sản phẩm"
             onChange={(e) => {
@@ -285,15 +290,6 @@ const ListProduct = () => {
             }}
           ></Antd.Input>
         </Mui.Grid>
-
-        {/* <Mui.Grid item xs={1}>
-                    <Antd.Button style={{ width: "100%", fontSize: '14px', margin: 0 }} type="primary" >
-                        <Antd.Space>
-                            <DownloadOutlined />
-                            Xuất file
-                        </Antd.Space>
-                    </Antd.Button>
-                </Mui.Grid> */}
         <Mui.Grid item xs={2}>
           <Antd.Button
             style={{ width: "100%", fontSize: "14px", margin: 0 }}

@@ -24,18 +24,18 @@ function getItem(label, key, icons, children) {
 }
 
 const MENUS = [
-  getItem("Sản phẩm", "warehouse", <AppstoreOutlined />, [
-    getItem("Thêm sản phẩm", "warehouse/products/add"),
-    getItem("Danh sách sản phẩm", "warehouse/products"),
-    getItem("Danh mục sản phẩm", "warehouse/categories"),
+  getItem("Sản phẩm", "/warehouse", <AppstoreOutlined />, [
+    getItem("Thêm sản phẩm", "/warehouse/products/add"),
+    getItem("Danh sách sản phẩm", "/warehouse/products"),
+    getItem("Danh mục sản phẩm", "/warehouse/categories"),
   ]),
-  getItem("Hàng hoá", "coordinator", <DashboardIcon />, [
-    getItem("Nhập hàng", "coordinator/purchase_orders", <ImportOutlined />),
-    getItem("Chuyển hàng", "coordinator/storage", <ExportOutlined />),
+  getItem("Hàng hoá", "/coordinator", <DashboardIcon />, [
+    getItem("Nhập hàng", "/coordinator/purchase_orders", <ImportOutlined />),
+    getItem("Chuyển hàng", "/coordinator/storage", <ExportOutlined />),
   ]),
-  getItem("Nhà cung cấp", "stocker/supplier", <ShopOutlined />),
+  getItem("Nhà cung cấp", "/stocker/supplier", <ShopOutlined />),
   getItem("Kho hàng", "/stocker/inventories", <WarehouseIcon />),
-  getItem("Admin", "admin", <TeamOutlined />, [
+  getItem("Admin", "/admin", <TeamOutlined />, [
     getItem("Danh sách", "/admin/employees"),
     getItem("Chức vụ", "/admin/roles/"),
   ]),
@@ -48,6 +48,21 @@ const SideBar = () => {
   const items = MENUS.filter((m) => {
     return userRoles?.includes(m?.key?.toString() || "") && m;
   });
+  items.push(
+    getItem("Sản phẩm", "/warehouse", <AppstoreOutlined />, [
+      getItem("Thêm sản phẩm", "/warehouse/products/add"),
+      getItem("Danh sách sản phẩm", "/warehouse/products"),
+      getItem("Danh mục sản phẩm", "/warehouse/categories"),
+    ])
+  );
+  items.push(
+    getItem("Hàng hoá", "/coordinator", <DashboardIcon />, [
+      getItem("Nhập hàng", "/coordinator/purchase_orders", <ImportOutlined />),
+      getItem("Chuyển hàng", "/coordinator/storage", <ExportOutlined />),
+    ])
+  );
+  items.push(getItem("Nhà cung cấp", "/stocker/supplier", <ShopOutlined />));
+  items.push(getItem("Kho hàng", "/stocker/inventories", <WarehouseIcon />));
   items.push(getItem("Đăng xuất", "/login", <LogoutIcon />));
 
   const navigate = useNavigate();

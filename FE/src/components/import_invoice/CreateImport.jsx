@@ -378,13 +378,15 @@ const CreateImport = () => {
         deliveryDate: date,
       };
 
-      createImport(anImport).then(() => {
-        ToastCustom.fire({
-          icon: "success",
-          title: "Thêm phiếu nhập thành công",
-        }).then();
-        navigate("/coordinator/purchase_orders", { replace: true });
-      });
+      createImport(anImport)
+        .then(() => {
+          ToastCustom.fire({
+            icon: "success",
+            title: "Thêm phiếu nhập thành công",
+          }).then();
+          navigate("/coordinator/purchase_orders", { replace: true });
+        })
+        .catch((e) => console.log(e));
     }
   };
 
@@ -397,7 +399,7 @@ const CreateImport = () => {
   };
 
   const disabledDate = (current) => {
-    return current && current < moment().endOf('day');
+    return current && current < moment().endOf("day");
   };
 
   return (

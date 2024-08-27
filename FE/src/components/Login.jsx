@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import { Form, Image, Input, message, notification, Typography } from "antd";
+import { Form, Image, Input, Typography } from "antd";
 import axios from "axios";
 import Button from "../common_components/Button";
 import PersonIcon from "@mui/icons-material/Person";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUserStore } from "../store/userSlice";
 import useTitle from "../constant/useTitle";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [loginForm] = Form.useForm();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state?.user);
 
   const loginSubmit = useMutation(
     async (loginData) => {
@@ -27,19 +26,19 @@ const Login = () => {
         ToastCustom.fire({
           icon: "error",
           title: "Tài khoản hoặc mật khẩu không đúng",
-        })
+        });
       },
       onSuccess(data, variables, context) {
         dispatch(
           setUserStore({
-              token: data.accessToken,
-              accountId: data.accountId
+            token: data.accessToken,
+            accountId: data.accountId,
           })
         );
         ToastCustom.fire({
           icon: "success",
           title: "Đăng nhập thành công",
-        })
+        });
         navigate("/home", { replace: true });
       },
     }
@@ -49,8 +48,6 @@ const Login = () => {
     const { username, password } = loginForm.getFieldsValue();
     loginSubmit.mutate({ username, password });
   };
-
-  
 
   return (
     <>
@@ -97,7 +94,6 @@ const Login = () => {
             <Form.Item
               name="username"
               rules={[{ required: true, message: "Hãy nhập tài khoản!" }]}
-              initialValue="admin"
             >
               <Input
                 className="pl-3"
@@ -116,7 +112,6 @@ const Login = () => {
             <Form.Item
               name="password"
               rules={[{ required: true, message: "Hãy nhập mật khẩu!" }]}
-              initialValue="minh"
             >
               <Input.Password
                 className="pl-3"
@@ -152,3 +147,4 @@ const Login = () => {
 };
 
 export default Login;
+ 

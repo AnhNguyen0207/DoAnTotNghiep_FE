@@ -2,12 +2,15 @@ import { Col, Row } from "antd";
 import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import { X } from "@mui/icons-material";
 const data = [
   { name: "Group A", value: 400 },
   { name: "Group B", value: 300 },
   { name: "Group C", value: 300 },
   { name: "Group D", value: 200 },
 ];
+
+let x = 0;
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
@@ -63,19 +66,14 @@ const PieChartReport = (props) => {
       </Col>
       <Col span={24}>
         {COLORS.map((c) => {
+          x = x + 1;
           return (
             <div className="flex items-center gap-3" key={c}>
               <FiberManualRecordIcon style={{ color: c }} fontSize="small" />{" "}
-              <span>Tiêu đề 1</span>
+              <span>Kho {x}</span>
             </div>
           );
         })}
-        {/* <div>
-          
-        </div>
-        <div>Tiêu đề 1</div>
-        <div>Tiêu đề 1</div>
-        <div>Tiêu đề 1</div> */}
       </Col>
     </Row>
   );

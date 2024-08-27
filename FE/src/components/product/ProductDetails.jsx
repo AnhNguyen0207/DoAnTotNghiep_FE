@@ -121,15 +121,15 @@ const ProductDetails = () => {
     <Menu
       onClick={handleMenuClick}
       items={[
-        {
-          key: "1",
-          label: (
-            <Antd.Button style={{ width: "100%" }} type="text" danger>
-              Xóa Sản phẩm
-              <DeleteOutlined />
-            </Antd.Button>
-          ),
-        },
+        // {
+        //   key: "1",
+        //   label: (
+        //     <Antd.Button style={{ width: "100%" }} type="text" danger>
+        //       Xóa Sản phẩm
+        //       <DeleteOutlined />
+        //     </Antd.Button>
+        //   ),
+        // },
         {
           label: (
             <Antd.Button style={{ width: "100%" }} type="text">

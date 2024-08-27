@@ -12,7 +12,7 @@ const PageResult = ({ props }) => {
         subTitle="Có lỗi xảy ra"
         extra={
           <Button
-            onClick={() => navigate("/", { replace: true })}
+            onClick={() => navigate("/home", { replace: true })}
             type="primary"
           >
             Trang chủ
@@ -29,7 +29,10 @@ const PageResult = ({ props }) => {
       title="403"
       subTitle="Xin lỗi, bạn không đủ quyền truy cập trang này."
       extra={
-        <Button onClick={() => navigate("/", { replace: true })} type="primary">
+        <Button
+          onClick={() => navigate("/home", { replace: true })}
+          type="primary"
+        >
           Trang chủ
         </Button>
       }

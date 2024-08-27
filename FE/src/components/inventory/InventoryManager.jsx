@@ -75,7 +75,7 @@ const InventoryManager = () => {
       ToastCustom.fire({
         icon: "error",
         title: "Có lỗi xảy ra, vui lòng thử lại",
-      })
+      });
       setMinQuantityModal(true);
     },
   });
@@ -207,17 +207,17 @@ const InventoryManager = () => {
       ),
       sorter: (a, b) => a.createAt.localeCompare(b.createAt),
     },
-    {
-      render: (row) => (
-        <DeletedIcon
-          className="text-red-500"
-          onClick={(e) => {
-            e.stopPropagation();
-            onDelete(row);
-          }}
-        />
-      ),
-    },
+    // {
+    //   render: (row) => (
+    //     <DeletedIcon
+    //       className="text-red-500"
+    //       onClick={(e) => {
+    //         e.stopPropagation();
+    //         onDelete(row);
+    //       }}
+    //     />
+    //   ),
+    // },
   ];
 
   const onSelectChange = (newSelectedRowKeys) => {
@@ -358,7 +358,7 @@ const InventoryManager = () => {
               size="large"
               onSearch={(e) => handleSearch(e)}
             />
-            <div
+            {/* <div
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -366,8 +366,8 @@ const InventoryManager = () => {
                 marginTop: "10px",
                 marginBottom: "10px",
               }}
-            >
-              <Dropdown overlay={menu} disabled={!hasSelected}>
+            > */}
+            {/* <Dropdown overlay={menu} disabled={!hasSelected}>
                 <Button
                   type="primary"
                   style={{
@@ -379,16 +379,16 @@ const InventoryManager = () => {
                   Thao tác
                   <DownOutlined />
                 </Button>
-              </Dropdown>
-              <span style={{ marginLeft: 8, marginRight: 8 }}>
+              </Dropdown> */}
+            {/* <span style={{ marginLeft: 8, marginRight: 8 }}>
                 {hasSelected
                   ? `Đã chọn ${selectedRowKeys.length} phiên bản sản phẩm`
                   : ""}
               </span>
-            </div>
+            </div> */}
             <Table
               rowKey={"id"}
-              rowSelection={rowSelection}
+              // rowSelection={rowSelection}
               columns={columns}
               dataSource={data}
               bordered
