@@ -32,7 +32,7 @@ import {
   updateExportStatusById,
 } from "../../api/exportStatus";
 import { getProductVariants } from "../../api/inventory";
-import { employeesApi } from "../../api/employeesApi";
+import { employeesApi } from "../../api/EmployeesApi";
 import { useSelector } from "react-redux";
 import PDFStockTransfer from "./PDFStockTransfer";
 import { PDFDownloadLink } from "@react-pdf/renderer";

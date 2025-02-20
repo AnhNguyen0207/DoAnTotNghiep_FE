@@ -3,7 +3,7 @@ import { Form, Input, Modal, message, Space } from "antd";
 import axios from "axios";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { rolesApi } from "../../api/employeesApi";
+import { rolesApi } from "../../api/EmployeesApi";
 import { DeletedIcon, PenIcon } from "../../common_components";
 import { Table, Button } from "../../common_components";
 import useTitle from "../../constant/useTitle";

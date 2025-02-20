@@ -8,7 +8,7 @@ import {
   accountApi,
   deleteEmpApi,
   updateEmployeeApi,
-} from "../../api/employeesApi";
+} from "../../api/EmployeesApi";
 import { useState } from "react";
 import useTitle from "../../constant/useTitle";
 import Swal from "sweetalert2";

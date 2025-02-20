@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Breadcrumb, Button, Form, Input, Skeleton } from "antd";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { employeeDetailsApi } from "../../api/employeesApi";
+import { employeeDetailsApi } from "../../api/EmployeesApi";
 import RoleSelect from "./RoleSelect";
 
 export default function EmployeeDetails() {
